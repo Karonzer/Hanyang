@@ -134,8 +134,6 @@ public class BattleAttackPopUp : MonoBehaviour, IGet_BattleAttackPopUp
 		transform.gameObject.SetActive(false);
 	}
 
-
-
 	private void Click_AttackGuidePopUpBackBtn()
 	{
 		popUps[1].gameObject.SetActive(false);
