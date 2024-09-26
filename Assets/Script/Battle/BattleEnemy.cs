@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public interface IGet_BattleEnemy
 {
+	public void Function_InitializemyCharacter();
+	public void Function_SettingmyCharacter();
 	public Transform Get_BattleEnemyObj();
 	public void Setting_EnemyStats(EnemyStats _data);
 	public Image Get_EnemyImage();
 	public Transform Get_AttackPos();
-	public void ReSetting_enemyImage();
+	public void ReSetting_EnemyImage();
 	public Transform Get_EnemyPos();
-	public Image Get_enemyImage();
 	public int Get_AttackDamages();
 	public void Calculation_AttackDamages(int _getDamages);
+	public void Recover_CurrentHealth();
+	public void Set_bDefenseState(bool _bool);
 }
 
 public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
@@ -25,6 +28,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 	[SerializeField] private int currentHealth;
 
 	[SerializeField] private Image enemyImage;
+	[SerializeField] private Image stateImage;
 	[SerializeField] private Image healthpar;
 	[SerializeField] private Text healthText;
 	[SerializeField] private Transform attackPos;
@@ -34,14 +38,12 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 
 	private void Awake()
 	{
-		Initialize_myCharacter();
+
 	}
 
 	private void OnEnable()
 	{
-		Setting_myCharacter();
-		Setting_EnemyImage();
-		bDefenseState = false;
+
 	}
 
 	private void Start()
@@ -49,9 +51,23 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 		
 	}
 
+	public void Function_InitializemyCharacter()
+	{
+		Initialize_myCharacter();
+	}
+
+	public void Function_SettingmyCharacter()
+	{
+		Setting_myCharacter();
+		Setting_EnemyImage();
+		bDefenseState = false;
+
+	}
+
 	private void Initialize_myCharacter()
 	{
 		enemyImage = transform.GetChild(0).GetComponent<Image>();
+		stateImage = enemyImage.transform.GetChild(0).GetComponent<Image>();
 		healthpar = transform.GetChild(1).GetChild(0).GetComponent<Image>();
 		healthText = transform.GetChild(1).GetChild(1).GetComponent<Text>();
 		attackPos = transform.GetChild(2);
@@ -62,6 +78,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 	private void Setting_EnemyImage()
 	{
 		enemyImage.color = new Color(1, 1, 1, 1);
+		stateImage.gameObject.SetActive(false);
 	}
 
 	private void Setting_myCharacter()
@@ -90,7 +107,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 		return attackPos;
 	}
 
-	public void ReSetting_enemyImage()
+	public void ReSetting_EnemyImage()
 	{
 		enemyImage.transform.SetParent(transform);
 		enemyImage.transform.SetSiblingIndex(0);
@@ -99,8 +116,6 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 	public Transform Get_EnemyPos()
 	{ return transform; }
 
-	public Image Get_enemyImage()
-	{ return enemyImage; }
 
 	public int Get_AttackDamages()
 	{
@@ -110,6 +125,15 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 	public void Set_bDefenseState(bool _bool)
 	{
 		bDefenseState = _bool;
+		if(bDefenseState) 
+		{
+			stateImage.gameObject.SetActive(true);
+			stateImage.sprite = BGSC.Instance.get_BattleContentController.Get_ImageBattleSpriteController().Get_IconImage(1);
+		}
+		else
+		{
+			stateImage.gameObject.SetActive(false);
+		}
 	}
 
 
@@ -121,6 +145,9 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 			currentHealth = maxHealth;
 		}
 		healthText.text = currentHealth.ToString();
+		stateImage.gameObject.SetActive(true);
+		stateImage.sprite = BGSC.Instance.get_BattleContentController.Get_ImageBattleSpriteController().Get_IconImage(2);
+
 	}
 
 	public void Calculation_AttackDamages(int _getDamages)
@@ -128,21 +155,43 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 		int damages = _getDamages - enemyStats.baseStats.defense;
 		if (damages > 0)
 		{
-			Debug.Log("데미지 계산");
-			currentHealth = currentHealth - damages;
-
-			if (currentHealth <= 0)
+			if(bDefenseState)
 			{
-				currentHealth = 0;
-				healthpar.fillAmount = 0; ;
-				healthText.text = "0";
-				StartCoroutine("Die_Enemy");
+				Debug.Log("방어 상태 데미지 계산");
+				currentHealth = currentHealth - (int)(damages * 0.1);
+
+				if (currentHealth <= 0)
+				{
+					currentHealth = 0;
+					healthpar.fillAmount = 0; ;
+					healthText.text = "0";
+					StartCoroutine("Die_Enemy");
+				}
+				else
+				{
+					healthpar.fillAmount = (float)currentHealth / maxHealth;
+					healthText.text = currentHealth.ToString();
+				}
 			}
 			else
 			{
-				healthpar.fillAmount = (float)currentHealth / maxHealth;
-				healthText.text = currentHealth.ToString();
+				Debug.Log("데미지 계산");
+				currentHealth = currentHealth - damages;
+
+				if (currentHealth <= 0)
+				{
+					currentHealth = 0;
+					healthpar.fillAmount = 0; ;
+					healthText.text = "0";
+					StartCoroutine("Die_Enemy");
+				}
+				else
+				{
+					healthpar.fillAmount = (float)currentHealth / maxHealth;
+					healthText.text = currentHealth.ToString();
+				}
 			}
+
 
 		}
 		else

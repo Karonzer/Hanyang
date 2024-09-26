@@ -88,6 +88,8 @@ public class BattleCharctreController : MonoBehaviour, IGet_BattleCharctreContro
 			{
 				
 				enemy.gameObject.SetActive(true);
+				battleEnemies[i].Function_InitializemyCharacter();
+				battleEnemies[i].Function_SettingmyCharacter();
 				battleEnemies[i].Get_EnemyImage().sprite = BGSC.Instance.get_BattleContentController.Get_BattleSpriteController().Get_EnemyImage(index);
 				battleEnemies[i].Get_BattleEnemyObj().gameObject.SetActive(true);
 				battleEnemies[i].Setting_EnemyStats(DataBase.Instance.GetEnemyStats(index));

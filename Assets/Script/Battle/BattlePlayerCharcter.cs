@@ -15,6 +15,7 @@ public interface IGet_BattlePlayerCharcter
 	public void Set_bDefenseState(bool _bool);
 	public void Recover_CurrentHealth();
 	public int Get_AttackDamages();
+	public void Calculation_AttackDamages(int _getDamages);
 }
 
 public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
@@ -22,6 +23,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
     [SerializeField] private Character myCharacter;
 
 	[SerializeField] private Image myCharacterBtnImage;
+	[SerializeField] private Image stateImage;
 	[SerializeField] private Button myCharacterBtn;
 	[SerializeField] private Outline myCharacterOutline;
 
@@ -63,6 +65,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 	private void Initialize_myCharacter()
 	{
 		myCharacterBtnImage = transform.GetChild(0).GetComponent<Image>();
+		stateImage = myCharacterBtnImage.transform.GetChild(0).GetComponent<Image>();
 		myCharacterBtn = transform.GetChild(0).GetComponent<Button>();
 		myCharacterBtn.onClick.AddListener(() => Click_myCharacterBtn(transform.GetSiblingIndex()));
 		myCharacterOutline = transform.GetChild(0).GetComponent<Outline>();
@@ -78,6 +81,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 	private void Setting_myCharacterBtnImage()
 	{
 		myCharacterBtnImage.color = new Color(1, 1, 1, 1);
+		stateImage.gameObject.SetActive(false);
 	}
 
 	private void Click_myCharacterBtn(int _index)
@@ -137,6 +141,15 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 	public void Set_bDefenseState(bool _bool)
 	{
 		bDefenseState = _bool;
+		if (bDefenseState)
+		{
+			stateImage.gameObject.SetActive(true);
+			stateImage.sprite = BGSC.Instance.get_BattleContentController.Get_ImageBattleSpriteController().Get_IconImage(1);
+		}
+		else
+		{
+			stateImage.gameObject.SetActive(false);
+		}
 	}
 
 
@@ -148,6 +161,8 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 			currentHealth = maxHealth;
 		}
 		healthText.text = currentHealth.ToString();
+		stateImage.gameObject.SetActive(true);
+		stateImage.sprite = BGSC.Instance.get_BattleContentController.Get_ImageBattleSpriteController().Get_IconImage(2);
 	}
 
 	public int Get_AttackDamages()
@@ -160,19 +175,39 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 		int damages = _getDamages - myCharacter.baseStats.defense;
 		if (damages > 0)
 		{
-			Debug.Log("데미지 계산");
-			currentHealth = currentHealth - damages;
-
-			if (currentHealth <= 0)
+			if (bDefenseState == true)
 			{
-				currentHealth = 0;
-				healthpar.fillAmount = 0; ;
-				healthText.text = "0";
+				Debug.Log("방어 상태 데미지 계산");
+				currentHealth = currentHealth - (int)(damages * 0.1f);
+
+				if (currentHealth <= 0)
+				{
+					currentHealth = 0;
+					healthpar.fillAmount = 0; ;
+					healthText.text = "0";
+				}
+				else
+				{
+					healthpar.fillAmount = (float)currentHealth * 1 / maxHealth;
+					healthText.text = currentHealth.ToString();
+				}
 			}
 			else
 			{
-				healthpar.fillAmount = (float)currentHealth * 1 / maxHealth;
-				healthText.text = currentHealth.ToString();
+				Debug.Log("데미지 계산");
+				currentHealth = currentHealth - damages;
+
+				if (currentHealth <= 0)
+				{
+					currentHealth = 0;
+					healthpar.fillAmount = 0; ;
+					healthText.text = "0";
+				}
+				else
+				{
+					healthpar.fillAmount = (float)currentHealth * 1 / maxHealth;
+					healthText.text = currentHealth.ToString();
+				}
 			}
 
 		}
