@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -173,7 +173,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		Debug.Log("Start_CharcterBattle");
 	}
 
-	//Ä³¸¯ÅÍ°¡ ¸ó½ºÅÍ¸¦ °ø°İÇÏ´Â ÇÔ¼ö
+	//ìºë¦­í„°ê°€ ëª¬ìŠ¤í„°ë¥¼ ê³µê²©í•˜ëŠ” í•¨ìˆ˜
 	IEnumerator Start_CharcterBattleDelay()
 	{
 		yield return new WaitForSeconds(0.5f);
@@ -182,7 +182,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 
 		float moveSpeed = 350.0f;
 
-		//ÇØ´ç ¸ó½ºÅÍ À§Ä¡ ÀÌµ¿
+		//í•´ë‹¹ ëª¬ìŠ¤í„° ìœ„ì¹˜ ì´ë™
 		while(Vector3.Distance(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position, get_BattleCharctreController.get_BattleEnemy(currentSelectEnemyIndex).Get_AttackPos().position) > 0.001f)
 		{
 			get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position = 
@@ -192,7 +192,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			yield return new WaitForSeconds(0.001f);
 		}
 
-		Debug.Log("µµÂø");
+		Debug.Log("ë„ì°©");
 		float blinkSpeed = 7.5f;
 		bool increasing = true;
 		float alpha = 1;
@@ -225,7 +225,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		get_BattleCharctreController.get_BattleEnemy(currentSelectEnemyIndex).Calculation_AttackDamages(get_BattleCharctreController.get_BattlePlayerCharcter(currentSelectEnemyIndex).Get_AttackDamages());
 		yield return new WaitForEndOfFrame();
 
-		//¿ø À§Ä¡ ÀÌµ¿
+		//ì› ìœ„ì¹˜ ì´ë™
 		while (Vector3.Distance(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position, get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_CharcterPos().position) > 0.001f)
 		{
 			get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position =
@@ -235,7 +235,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			yield return new WaitForSeconds(0.001f);
 		}
 
-		Debug.Log("¿ø À§Ä¡ µµÂø");
+		Debug.Log("ì› ìœ„ì¹˜ ë„ì°©");
 		yield return new WaitForSeconds(1f);
 		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).ReSetting_myCharacter();
 		get_BattleCharctreController.Change_myCharcterOutLine();
@@ -262,12 +262,12 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 
 		if(hasFalse)
 		{
-			Debug.Log("¾ÆÁ÷ Çàµ¿Àº ÇÏÁö ¾ÊÀº ¿ëº´ÀÌ ÀÖ½À´Ï´Ù");
+			Debug.Log("ì•„ì§ í–‰ë™ì€ í•˜ì§€ ì•Šì€ ìš©ë³‘ì´ ìˆìŠµë‹ˆë‹¤");
 			return;
 		}
 		else
 		{
-			Debug.Log("ÀüºÎ Çàµ¿ ÇÏ¿´½À´Ï´Ù");
+			Debug.Log("ì „ë¶€ í–‰ë™ í•˜ì˜€ìŠµë‹ˆë‹¤");
 			get_BattleUiController.Get_TurnOver().interactable = true;
 		}
 	}
@@ -297,7 +297,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	{
 		if (bcurrentMyTurn)
 		{
-			//»ó´ë ÅÏÀ¸·Î
+			//ìƒëŒ€ í„´ìœ¼ë¡œ
 			bcurrentMyTurn = false;
 			get_BattleUiController.ReSetting_TurnText(1);
 			get_BattlePopUpController.ReSettin_GuidePopText(1);
@@ -310,7 +310,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		}
 		else
 		{
-			//³»ÅÏÀ¸·Î
+			//ë‚´í„´ìœ¼ë¡œ
 			bcurrentMyTurn = true;
 			get_BattleUiController.ReSetting_TurnText(0);
 			get_BattlePopUpController.ReSettin_GuidePopText(0);
@@ -339,7 +339,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		yield return new WaitForSeconds(1.5f);
 		get_BattlePopUpController.Close_PopUp();
 
-		//¸ó½ºÅÍ Çàµ¿
+		//ëª¬ìŠ¤í„° í–‰ë™
 		if(_bool == true)
 		{
 			StartCoroutine("Start_EnemyAction");
@@ -354,23 +354,22 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			int index = i;
 			if (bCurrentEnemyAlivel[i] == true)
 			{
-				int randomValue = Random.Range(0, 100);  // 0ºÎÅÍ 100 »çÀÌÀÇ ·£´ı °ª »ı¼º
+				int randomValue = Random.Range(0, 100);  // 0ë¶€í„° 100 ì‚¬ì´ì˜ ëœë¤ ê°’ ìƒì„±
 
-				if (randomValue < 15)  // 75% È®·ü·Î °ø°İ
+				if (randomValue < 75)  // 75% í™•ë¥ ë¡œ ê³µê²©
 				{
-					Debug.Log("¸ó½ºÅÍ °ø°İ");
+					Debug.Log("ëª¬ìŠ¤í„° ê³µê²©");
 					yield return StartCoroutine("Start_EnemyAttack", index);
-
 				}
-				else if (randomValue < 55)  // 15% È®·ü·Î ¹æ¾î
+				else if (randomValue < 90)  // 15% í™•ë¥ ë¡œ ë°©ì–´
 				{
-					Debug.Log("¸ó½ºÅÍ ¹æ¾î");
+					Debug.Log("ëª¬ìŠ¤í„° ë°©ì–´");
 					get_BattleCharctreController.get_BattleEnemy(index).Set_bDefenseState(true);
 					yield return new WaitForEndOfFrame();
 				}
-				else  // 10% È®·ü·Î È¸º¹
+				else  // 10% í™•ë¥ ë¡œ íšŒë³µ
 				{
-					Debug.Log("¸ó½ºÅÍ È¸º¹");
+					Debug.Log("ëª¬ìŠ¤í„° íšŒë³µ");
 					get_BattleCharctreController.get_BattleEnemy(index).Recover_CurrentHealth();
 					yield return new WaitForEndOfFrame();
 				}
@@ -382,7 +381,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	}	
 
 
-	//¸ó½ºÅÍ°¡ Çàµ¿ ÇÏ´Â ÇÔ¼ö
+	//ëª¬ìŠ¤í„°ê°€ í–‰ë™ í•˜ëŠ” í•¨ìˆ˜
 	IEnumerator Start_EnemyAttack(int _index)
 	{
 		attcakAlivePlayers.Clear();
@@ -390,7 +389,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		{
 			if (bCurrentCharcterAlivel[i])
 			{
-				attcakAlivePlayers.Add(i);  // ÇØ´ç Ä³¸¯ÅÍ°¡ »ì¾ÆÀÖÀ¸¸é ÀÎµ¦½º¸¦ Ãß°¡
+				attcakAlivePlayers.Add(i);  // í•´ë‹¹ ìºë¦­í„°ê°€ ì‚´ì•„ìˆìœ¼ë©´ ì¸ë±ìŠ¤ë¥¼ ì¶”ê°€
 			}
 		}
 		int randomPlayerIndex = 0 ;
@@ -405,7 +404,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 
 		float moveSpeed = 350.0f;
 
-		//ÇØ´ç Ä³¸¯ÅÍ·Î ÀÌµ¿ À§Ä¡ ÀÌµ¿
+		//í•´ë‹¹ ìºë¦­í„°ë¡œ ì´ë™ ìœ„ì¹˜ ì´ë™
 		while (Vector3.Distance(get_BattleCharctreController.get_BattleEnemy(_index).Get_EnemyImage().transform.position, get_BattleCharctreController.get_BattlePlayerCharcter(randomPlayerIndex).Get_AttackPos().position) > 0.001f)
 		{
 			get_BattleCharctreController.get_BattleEnemy(_index).Get_EnemyImage().transform.position =
@@ -415,7 +414,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			yield return new WaitForSeconds(0.001f);
 		}
 
-		Debug.Log("µµÂø");
+		Debug.Log("ë„ì°©");
 		float blinkSpeed = 7.5f;
 		bool increasing = true;
 		float alpha = 1;
@@ -448,7 +447,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		get_BattleCharctreController.get_BattlePlayerCharcter(randomPlayerIndex).Calculation_AttackDamages(get_BattleCharctreController.get_BattleEnemy(_index).Get_AttackDamages());
 		yield return new WaitForEndOfFrame();
 
-		//¿ø À§Ä¡ ÀÌµ¿
+		//ì› ìœ„ì¹˜ ì´ë™
 		while (Vector3.Distance(get_BattleCharctreController.get_BattleEnemy(_index).Get_EnemyImage().transform.position, get_BattleCharctreController.get_BattleEnemy(_index).Get_EnemyPos().position) > 0.001f)
 		{
 			get_BattleCharctreController.get_BattleEnemy(_index).Get_EnemyImage().transform.position =
@@ -458,7 +457,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			yield return new WaitForSeconds(0.001f);
 		}
 
-		Debug.Log("¿ø À§Ä¡ µµÂø");
+		Debug.Log("ì› ìœ„ì¹˜ ë„ì°©");
 		yield return new WaitForSeconds(1f);
 		get_BattleCharctreController.get_BattleEnemy(_index).ReSetting_EnemyImage();
 		get_BattleEffecController.Get_DontClick().gameObject.SetActive(false);
@@ -485,12 +484,12 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 
 		if (hasFalse)
 		{
-			Debug.Log("¾ÆÁ÷ ¸ğµç ¸ó½ºÅÍ¸¦ ÇØÄ¡¿ìÁö ¸øÇß½À´Ï´Ù");
+			Debug.Log("ì•„ì§ ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ í•´ì¹˜ìš°ì§€ ëª»í–ˆìŠµë‹ˆë‹¤");
 			return;
 		}
 		else
 		{
-			Debug.Log("¸ğµç ¸ó½ºÅÍ¸¦ ÇØÄ¡¿ü½À´Ï´Ù");
+			Debug.Log("ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ í•´ì¹˜ì› ìŠµë‹ˆë‹¤");
 		}
 	}
 
