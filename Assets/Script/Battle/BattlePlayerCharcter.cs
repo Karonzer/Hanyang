@@ -177,7 +177,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 		{
 			if (bDefenseState == true)
 			{
-				Debug.Log("¹æ¾î »óÅÂ µ¥¹ÌÁö °è»ê");
+				Debug.Log("ë°©ì–´ ìƒíƒœ ë°ë¯¸ì§€ ê³„ì‚°");
 				currentHealth = currentHealth - (int)(damages * 0.1f);
 
 				if (currentHealth <= 0)
@@ -185,6 +185,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 					currentHealth = 0;
 					healthpar.fillAmount = 0; ;
 					healthText.text = "0";
+					StartCoroutine("Die_Charcter");
 				}
 				else
 				{
@@ -194,7 +195,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 			}
 			else
 			{
-				Debug.Log("µ¥¹ÌÁö °è»ê");
+				Debug.Log("ë°ë¯¸ì§€ ê³„ì‚°");
 				currentHealth = currentHealth - damages;
 
 				if (currentHealth <= 0)
@@ -202,6 +203,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 					currentHealth = 0;
 					healthpar.fillAmount = 0; ;
 					healthText.text = "0";
+					StartCoroutine("Die_Charcter");
 				}
 				else
 				{
@@ -213,11 +215,32 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 		}
 		else
 		{
-			Debug.Log("¹æ¾î·ÂÀÌ ³ô¾Æ µ¥¹ÌÁö¸¦ ³ÖÀ» ¼ö ¾ø½À´Ï´Ù");
+			Debug.Log("ë°©ì–´ë ¥ì´ ë†’ì•„ ë°ë¯¸ì§€ë¥¼ ë„£ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤");
 			currentHealth = currentHealth - 1;
 			healthpar.fillAmount = (float)currentHealth * 1 / maxHealth;
 			healthText.text = currentHealth.ToString();
 		}
+	}
+
+	IEnumerator Die_Charcter()
+	{
+		float blinkSpeed = 1f;
+		float alpha = 1;
+		bool stop = true;
+		while (stop)
+		{
+			alpha -= Time.deltaTime * blinkSpeed;
+			if (alpha <= 0f)
+			{
+				alpha = 0f;
+				stop = false;
+			}
+			myCharacterBtnImage.color = new Color(1, 1, 1, alpha);
+			yield return new WaitForEndOfFrame();
+		}
+		BGSC.Instance.get_BattleContentController.FuntionStatsCnage_bCharacterAlivel(currentIndex);
+		yield return new WaitForEndOfFrame();
+		transform.gameObject.SetActive(false);
 	}
 
 }

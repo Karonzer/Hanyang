@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,6 +27,8 @@ public interface IGet_BattleContentController
 	public void FunctionChange_TurnOver();
 	public void FuntionStatsCnage_bCurrentEnemyAlivel(int _index);
 	public IGet_BattleSpriteController Get_ImageBattleSpriteController();
+	public void FunctionGain_handlecurrentCharcterIndexXP();
+	public void FuntionStatsCnage_bCharacterAlivel(int _index);
 }
 
 public class BattleContentController : MonoBehaviour, IGet_BattleContentController
@@ -48,10 +50,12 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	[SerializeField] private int currentCharcterIndex;
 	[SerializeField] private bool[] bCurrentCharcterAlivel;
 	[SerializeField] private bool[] bCheckCharcterAction;
+	[SerializeField] private int[] handlecurrentCharcterIndex;
 
 	[SerializeField] private int currentSelectEnemyIndex;
 	[SerializeField] private bool[] bCurrentEnemyAlivel;
 	[SerializeField] private List<int> attcakAlivePlayers;
+
 	[SerializeField] private bool bcurrentMyTurn;
 
 	private void Awake()
@@ -107,10 +111,12 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	{
 		bCurrentCharcterAlivel = new bool[3];
 		bCheckCharcterAction = new bool[3];
+		handlecurrentCharcterIndex = new int[3];
 		for (int i = 0; i < bCurrentCharcterAlivel.Length;i++)
 		{
 			bCurrentCharcterAlivel[i] = true;
 			bCheckCharcterAction[i] = false;
+			handlecurrentCharcterIndex[i] = 0;
 		}
 
 		attcakAlivePlayers = new List<int>();
@@ -381,7 +387,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	}	
 
 
-	//몬스터가 행동 하는 함수
+	//일반몬스터가 행동 하는 함수
 	IEnumerator Start_EnemyAttack(int _index)
 	{
 		attcakAlivePlayers.Clear();
@@ -476,6 +482,30 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		return bCurrentEnemyAlivel;
 	}
 
+	public void FunctionGain_handlecurrentCharcterIndexXP()
+	{
+		++handlecurrentCharcterIndex[currentCharcterIndex];
+	}
+
+	public void FuntionStatsCnage_bCharacterAlivel(int _index)
+	{
+		bCurrentCharcterAlivel[_index] = false;
+
+		bool hasFalse = bCurrentCharcterAlivel.Any(value => value == true);
+
+		if (hasFalse)
+		{
+			Debug.Log("아직 캐릭터 생존하고 있습니다");
+			return;
+		}
+		else
+		{
+			get_BattlePopUpController.Open_PopUp(5);
+			DataBase.Instance.FunctionGain_Gold();
+			Debug.Log("모든 캐릭터가 죽었습니다");
+		}
+	}
+
 	public void FuntionStatsCnage_bCurrentEnemyAlivel(int _index)
 	{
 		bCurrentEnemyAlivel[_index] = false;
@@ -489,6 +519,8 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		}
 		else
 		{
+			get_BattlePopUpController.Open_PopUp(3);
+			DataBase.Instance.FunctionGain_Gold();
 			Debug.Log("모든 몬스터를 해치웠습니다");
 		}
 	}

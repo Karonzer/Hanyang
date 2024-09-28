@@ -157,7 +157,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 		{
 			if(bDefenseState)
 			{
-				Debug.Log("¹æ¾î »óÅÂ µ¥¹ÌÁö °è»ê");
+				Debug.Log("ë°©ì–´ ìƒíƒœ ë°ë¯¸ì§€ ê³„ì‚°");
 				currentHealth = currentHealth - (int)(damages * 0.1);
 
 				if (currentHealth <= 0)
@@ -175,7 +175,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 			}
 			else
 			{
-				Debug.Log("µ¥¹ÌÁö °è»ê");
+				Debug.Log("ë°ë¯¸ì§€ ê³„ì‚°");
 				currentHealth = currentHealth - damages;
 
 				if (currentHealth <= 0)
@@ -196,7 +196,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 		}
 		else
 		{
-			Debug.Log("¹æ¾î·ÂÀÌ ³ô¾Æ µ¥¹ÌÁö¸¦ ³ÖÀ» ¼ö ¾ø½À´Ï´Ù");
+			Debug.Log("ë°©ì–´ë ¥ì´ ë†’ì•„ ë°ë¯¸ì§€ë¥¼ ë„£ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤");
 			currentHealth = currentHealth - 1;
 			healthpar.fillAmount = (float)currentHealth / maxHealth;
 			healthText.text = currentHealth.ToString();
@@ -219,6 +219,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 			enemyImage.color = new Color(1, 1, 1, alpha);
 			yield return new WaitForEndOfFrame();
 		}
+		BGSC.Instance.get_BattleContentController.FunctionGain_handlecurrentCharcterIndexXP();
 		BGSC.Instance.get_BattleContentController.FuntionStatsCnage_bCurrentEnemyAlivel(currentIndex);
 		yield return new WaitForEndOfFrame();
 		transform.gameObject.SetActive(false);

@@ -41,6 +41,12 @@ public class EnemyData
 	public List<EnemyStats> enemyStats;
 }
 
+[System.Serializable]
+public class GoldData
+{
+	public int currentGold;
+}
+
 public class DataBase : GenericSingletonClass<DataBase>
 {
     
@@ -50,6 +56,8 @@ public class DataBase : GenericSingletonClass<DataBase>
 
     [SerializeField] private bool bClickBoss;
     [SerializeField] private int currentSelectEnemyIndex;
+
+    [SerializeField] private int currentGold;
 
 	private void Awake()
 	{
@@ -61,7 +69,7 @@ public class DataBase : GenericSingletonClass<DataBase>
     {
         LoadCharacterData();
         Load_EnemyData();
-
+        Load_CurrnetGold();
 	}
 
     private void LoadCharacterData()
@@ -106,6 +114,13 @@ public class DataBase : GenericSingletonClass<DataBase>
 		}
 	}
 
+    private void Load_CurrnetGold()
+    {
+		TextAsset jsonFile = Resources.Load<TextAsset>("Gold");
+        GoldData goldData =  JsonUtility.FromJson<GoldData>(jsonFile.text);
+        currentGold = goldData.currentGold;
+	}    
+
     public Character Get_CharacterData(int _index)
     {
         return characterData.characters[_index];
@@ -134,5 +149,27 @@ public class DataBase : GenericSingletonClass<DataBase>
 		currentSelectEnemyIndex = _index;
 	}
 
+
+    public void FunctionGain_Gold()
+    {
+        switch(currentSelectEnemyIndex)
+        {
+            case 0:
+				currentGold =  currentGold + 50;
+				break;
+            case 1:
+				currentGold = currentGold + 100;
+				break;
+            case 2:
+				currentGold = currentGold + 150;
+				break;
+            case 3:
+				currentGold = currentGold + 200;
+				break;
+            case 4:
+				currentGold = currentGold + 250;
+				break;
+        }
+    }
 
 }
