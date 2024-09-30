@@ -1359,7 +1359,7 @@ GameObject:
   - component: {fileID: 224960861}
   - component: {fileID: 224960860}
   m_Layer: 0
-  m_Name: Text (Legacy) (3)
+  m_Name: CharcterLevelUpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1915,6 +1915,7 @@ GameObject:
   - component: {fileID: 360975975}
   - component: {fileID: 360975977}
   - component: {fileID: 360975976}
+  - component: {fileID: 360975978}
   m_Layer: 0
   m_Name: ClearPopUp
   m_TagString: Untagged
@@ -1980,6 +1981,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360975974}
   m_CullTransparentMesh: 1
+--- !u!114 &360975978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360975974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f2bafd37effcb48a03f16044142afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charcterLevelUp: []
+  charcterXpText: []
 --- !u!1 &365664829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2571,7 +2586,7 @@ GameObject:
   - component: {fileID: 396902556}
   - component: {fileID: 396902555}
   m_Layer: 0
-  m_Name: Text (Legacy)
+  m_Name: CharcterXpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2936,7 +2951,7 @@ GameObject:
   - component: {fileID: 445066863}
   - component: {fileID: 445066862}
   m_Layer: 0
-  m_Name: Image (2)
+  m_Name: Charcter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4028,7 +4043,7 @@ GameObject:
   - component: {fileID: 589283015}
   - component: {fileID: 589283014}
   m_Layer: 0
-  m_Name: Image (3)
+  m_Name: Charcter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4575,7 +4590,7 @@ GameObject:
   - component: {fileID: 672979348}
   - component: {fileID: 672979347}
   m_Layer: 0
-  m_Name: Text (Legacy) (1)
+  m_Name: CharcterLevelUpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5350,6 +5365,7 @@ MonoBehaviour:
   enemyStats:
     id: 0
     name: 
+    currentXP: 0
     baseStats:
       attack: 0
       defense: 0
@@ -5460,7 +5476,7 @@ GameObject:
   - component: {fileID: 767361388}
   - component: {fileID: 767361387}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Charcter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6825,7 +6841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1002405913}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7440,7 +7456,7 @@ GameObject:
   - component: {fileID: 1140080818}
   - component: {fileID: 1140080817}
   m_Layer: 0
-  m_Name: StartBtn
+  m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11010,6 +11026,7 @@ MonoBehaviour:
   enemyStats:
     id: 0
     name: 
+    currentXP: 0
     baseStats:
       attack: 0
       defense: 0
@@ -11086,6 +11103,7 @@ MonoBehaviour:
   enemyStats:
     id: 0
     name: 
+    currentXP: 0
     baseStats:
       attack: 0
       defense: 0
@@ -11251,7 +11269,7 @@ GameObject:
   - component: {fileID: 1654442601}
   - component: {fileID: 1654442600}
   m_Layer: 0
-  m_Name: Text (Legacy) (2)
+  m_Name: CharcterLevelUpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12093,6 +12111,7 @@ MonoBehaviour:
   currentSelectEnemyIndex: 0
   bCurrentEnemyAlivel: 
   attcakAlivePlayers: 
+  currentEnemyXp: 0
   bcurrentMyTurn: 0
 --- !u!114 &1749921130
 MonoBehaviour:
@@ -13097,7 +13116,7 @@ GameObject:
   - component: {fileID: 1938561137}
   - component: {fileID: 1938561136}
   m_Layer: 0
-  m_Name: Text (Legacy)
+  m_Name: CharcterXpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14127,7 +14146,7 @@ GameObject:
   - component: {fileID: 2061605571}
   - component: {fileID: 2061605570}
   m_Layer: 0
-  m_Name: StartBtn
+  m_Name: OKBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14806,7 +14825,7 @@ GameObject:
   - component: {fileID: 2144245083}
   - component: {fileID: 2144245082}
   m_Layer: 0
-  m_Name: Text (Legacy)
+  m_Name: CharcterXpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

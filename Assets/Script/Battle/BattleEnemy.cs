@@ -17,6 +17,7 @@ public interface IGet_BattleEnemy
 	public void Calculation_AttackDamages(int _getDamages);
 	public void Recover_CurrentHealth();
 	public void Set_bDefenseState(bool _bool);
+	public int Get_EnemyXp();
 }
 
 public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
@@ -196,10 +197,21 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 		}
 		else
 		{
-			Debug.Log("방어력이 높아 데미지를 넣을 수 없습니다");
 			currentHealth = currentHealth - 1;
-			healthpar.fillAmount = (float)currentHealth / maxHealth;
-			healthText.text = currentHealth.ToString();
+			Debug.Log("방어력이 높아 데미지를 넣을 수 없습니다");
+			if (currentHealth <= 0)
+			{
+				currentHealth = 0;
+				healthpar.fillAmount = 0; ;
+				healthText.text = "0";
+				StartCoroutine("Die_Enemy");
+			}
+			else
+			{
+				healthpar.fillAmount = (float)currentHealth / maxHealth;
+				healthText.text = currentHealth.ToString();
+			}
+
 		}
 	}
 
@@ -223,6 +235,11 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 		BGSC.Instance.get_BattleContentController.FuntionStatsCnage_bCurrentEnemyAlivel(currentIndex);
 		yield return new WaitForEndOfFrame();
 		transform.gameObject.SetActive(false);
+	}
+
+	public int Get_EnemyXp()
+	{
+		return enemyStats.currentXP;
 	}
 
 }

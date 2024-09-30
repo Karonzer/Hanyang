@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 [System.Serializable]
@@ -32,6 +33,7 @@ public class EnemyStats
 {
 	public int id;
 	public string name;
+	public int currentXP;
 	public CharacterStats baseStats;
 }
 
@@ -59,6 +61,8 @@ public class DataBase : GenericSingletonClass<DataBase>
 
     [SerializeField] private int currentGold;
 
+    private Dictionary<int, int> stageExperienceValueList;
+
 	private void Awake()
 	{
 		Application.targetFrameRate = 60;
@@ -70,6 +74,7 @@ public class DataBase : GenericSingletonClass<DataBase>
         LoadCharacterData();
         Load_EnemyData();
         Load_CurrnetGold();
+        Load_StageExperienceValue();
 	}
 
     private void LoadCharacterData()
@@ -121,6 +126,21 @@ public class DataBase : GenericSingletonClass<DataBase>
         currentGold = goldData.currentGold;
 	}    
 
+    private void Load_StageExperienceValue()
+    {
+        stageExperienceValueList = new Dictionary<int, int>();
+		TextAsset file = Resources.Load<TextAsset>("StageExperienceValue");
+		string[] Sequence = file.text.Split('\n');
+		char sp = ' ';
+        foreach (var num in Sequence)
+        {
+            string[] word = num.Split(sp);
+            stageExperienceValueList.Add(int.Parse(word[0].ToString()), int.Parse(word[1].ToString()));
+            Debug.Log($"stageExperienceValueList : key : {int.Parse(word[0].ToString())} , value : {int.Parse(word[1].ToString())}");
+
+        }
+	}
+
     public Character Get_CharacterData(int _index)
     {
         return characterData.characters[_index];
@@ -171,5 +191,15 @@ public class DataBase : GenericSingletonClass<DataBase>
 				break;
         }
     }
+
+    public int Get_StageExperienceValueList()
+    {
+        return stageExperienceValueList[currentSelectEnemyIndex];
+	}
+
+    public void Set_CharacterDataCurrentXP(int _index,int _value)
+    {
+		characterData.characters[_index].currentXP = characterData.characters[_index].currentXP + _value;
+	}
 
 }

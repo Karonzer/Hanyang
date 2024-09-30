@@ -29,6 +29,9 @@ public interface IGet_BattleContentController
 	public IGet_BattleSpriteController Get_ImageBattleSpriteController();
 	public void FunctionGain_handlecurrentCharcterIndexXP();
 	public void FuntionStatsCnage_bCharacterAlivel(int _index);
+	public int[] Get_HandlecurrentCharcterIndex();
+	public void Set_currentEnemyXp(int _index);
+	public int Get_currentEnemyXp();
 }
 
 public class BattleContentController : MonoBehaviour, IGet_BattleContentController
@@ -56,6 +59,8 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	[SerializeField] private bool[] bCurrentEnemyAlivel;
 	[SerializeField] private List<int> attcakAlivePlayers;
 
+	[SerializeField] private int currentEnemyXp;
+
 	[SerializeField] private bool bcurrentMyTurn;
 
 	private void Awake()
@@ -69,7 +74,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	private void OnEnable()
 	{
 		Setting_Canvas();
-
+		currentEnemyXp = 0;
 		bcurrentMyTurn = true;
 	}
 
@@ -383,7 +388,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			yield return new WaitForEndOfFrame();
 		}
 		yield return new WaitForSeconds(1f);
-		FunctionChange_TurnOver();
+		Check_bCharacterAlivel();
 	}	
 
 
@@ -490,18 +495,20 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	public void FuntionStatsCnage_bCharacterAlivel(int _index)
 	{
 		bCurrentCharcterAlivel[_index] = false;
+	}
 
+	public void Check_bCharacterAlivel()
+	{
 		bool hasFalse = bCurrentCharcterAlivel.Any(value => value == true);
 
 		if (hasFalse)
 		{
 			Debug.Log("아직 캐릭터 생존하고 있습니다");
-			return;
+			FunctionChange_TurnOver();
 		}
 		else
 		{
-			get_BattlePopUpController.Open_PopUp(5);
-			DataBase.Instance.FunctionGain_Gold();
+			get_BattlePopUpController.Open_PopUp(4);
 			Debug.Log("모든 캐릭터가 죽었습니다");
 		}
 	}
@@ -520,7 +527,6 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		else
 		{
 			get_BattlePopUpController.Open_PopUp(3);
-			DataBase.Instance.FunctionGain_Gold();
 			Debug.Log("모든 몬스터를 해치웠습니다");
 		}
 	}
@@ -528,5 +534,19 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	public IGet_BattleSpriteController Get_ImageBattleSpriteController()
 	{
 		return get_BattleSpriteController;
+	}
+
+	public int[] Get_HandlecurrentCharcterIndex()
+	{
+		return handlecurrentCharcterIndex;
+	}
+
+	public void Set_currentEnemyXp(int _index)
+	{
+		currentEnemyXp = _index;
+	}
+	public int Get_currentEnemyXp()
+	{
+		return currentEnemyXp;
 	}
 }

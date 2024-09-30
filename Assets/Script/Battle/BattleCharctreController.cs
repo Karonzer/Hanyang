@@ -95,6 +95,7 @@ public class BattleCharctreController : MonoBehaviour, IGet_BattleCharctreContro
 				battleEnemies[i].Setting_EnemyStats(DataBase.Instance.GetEnemyStats(index));
 
 			}
+			BGSC.Instance.get_BattleContentController.Set_currentEnemyXp(DataBase.Instance.GetEnemyStats(index).currentXP);
 		}
 	}
 

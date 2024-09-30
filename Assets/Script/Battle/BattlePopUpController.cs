@@ -25,7 +25,7 @@ public class BattlePopUpController : MonoBehaviour, IGet_BattlePopUpController
 		Initialize_StartPopUp();
 		Initialize_DefensePopUpAndHealthPopUp();
 		Initialize_GuidePopText();
-
+		Initialize_DefeatPopUpBtn();
 	}
 
 	private void OnEnable()
@@ -98,14 +98,14 @@ public class BattlePopUpController : MonoBehaviour, IGet_BattlePopUpController
 	{
 		BGSC.Instance.get_BattleContentController.FunctionClick_DefenseState();
 		Click_CloseCurrnetPopUp();
-		Debug.Log("¹æ¾î»óÅÂ");
+		Debug.Log("ë°©ì–´ìƒíƒœ");
 	}
 
 	private void Click_Health()
 	{
 		BGSC.Instance.get_BattleContentController.FunctionClick_RecoverCurrentHealth();
 		Click_CloseCurrnetPopUp();
-		Debug.Log("È¸º¹»óÅÂ");
+		Debug.Log("íšŒë³µìƒíƒœ");
 	}
 
 	private void Initialize_GuidePopText()
@@ -117,7 +117,15 @@ public class BattlePopUpController : MonoBehaviour, IGet_BattlePopUpController
 	private void Click_CloseCurrnetPopUp()
 	{
 		popUps[currentPopUpIndex].gameObject.SetActive(false);
-		Debug.Log("´İ±â");
+		Debug.Log("ë‹«ê¸°");
+	}
+
+	public void Initialize_DefeatPopUpBtn()
+	{
+		Transform pos = popUps[4].GetChild(0).Find("Btn");
+
+		Button back = pos.GetChild(0).GetComponent<Button>();
+		back.onClick.AddListener(() => Click_BackToMain());
 	}
 
 	//attack select
@@ -142,10 +150,10 @@ public class BattlePopUpController : MonoBehaviour, IGet_BattlePopUpController
 		switch(_index)
 		{
 			case 0:
-				guidePopText.text = "³» ÅÏ\r\nÀÔ³ª´Ù.";
+				guidePopText.text = "ë‚´ í„´\r\nì…ë‚˜ë‹¤.";
 				break;
 			case 1:
-				guidePopText.text = "»ó´ë ÅÏ\r\nÀÔ³ª´Ù.";
+				guidePopText.text = "ìƒëŒ€ í„´\r\nì…ë‚˜ë‹¤.";
 				break;
 		}
 	}

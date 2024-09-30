@@ -3,6 +3,7 @@
     {
       "id": 1,
       "name": "Enmey_01",
+      "currentXP": 50,
       "baseStats": {
         "attack": 10,
         "defense": 10,
@@ -12,6 +13,7 @@
     {
       "id": 2,
       "name": "Enmey_02",
+      "currentXP": 100,
       "baseStats": {
         "attack": 50,
         "defense": 30,
@@ -21,6 +23,7 @@
     {
       "id": 3,
       "name": "Enmey_03",
+      "currentXP": 150,
       "baseStats": {
         "attack": 100,
         "defense": 80,
@@ -30,6 +33,7 @@
     {
       "id": 4,
       "name": "Enmey_04",
+      "currentXP": 200,
       "baseStats": {
         "attack": 100,
         "defense": 80,
@@ -39,6 +43,7 @@
     {
       "id": 5,
       "name": "Enmey_05",
+      "currentXP": 250,
       "baseStats": {
         "attack": 100,
         "defense": 80,

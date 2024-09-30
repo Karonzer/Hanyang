@@ -217,8 +217,19 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 		{
 			Debug.Log("방어력이 높아 데미지를 넣을 수 없습니다");
 			currentHealth = currentHealth - 1;
-			healthpar.fillAmount = (float)currentHealth * 1 / maxHealth;
-			healthText.text = currentHealth.ToString();
+			if (currentHealth <= 0)
+			{
+				currentHealth = 0;
+				healthpar.fillAmount = 0; ;
+				healthText.text = "0";
+				StartCoroutine("Die_Charcter");
+			}
+			else
+			{
+				healthpar.fillAmount = (float)currentHealth * 1 / maxHealth;
+				healthText.text = currentHealth.ToString();
+			}
+
 		}
 	}
 
