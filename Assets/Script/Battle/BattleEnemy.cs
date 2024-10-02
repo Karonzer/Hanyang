@@ -153,7 +153,10 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 
 	public void Calculation_AttackDamages(int _getDamages)
 	{
+		
 		int damages = _getDamages - enemyStats.baseStats.defense;
+
+		Debug.Log($"damages : {damages} , _getDamages : {_getDamages} , defense : {enemyStats.baseStats.defense} ");
 		if (damages > 0)
 		{
 			if(bDefenseState)

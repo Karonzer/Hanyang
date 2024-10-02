@@ -63,6 +63,8 @@ public class DataBase : GenericSingletonClass<DataBase>
 
     private Dictionary<int, int> stageExperienceValueList;
 
+    private Dictionary<int, int> xpList;
+
 	private void Awake()
 	{
 		Application.targetFrameRate = 60;
@@ -75,6 +77,7 @@ public class DataBase : GenericSingletonClass<DataBase>
         Load_EnemyData();
         Load_CurrnetGold();
         Load_StageExperienceValue();
+        Load_XpList();
 	}
 
     private void LoadCharacterData()
@@ -141,6 +144,21 @@ public class DataBase : GenericSingletonClass<DataBase>
         }
 	}
 
+    private void Load_XpList()
+    {
+        xpList = new Dictionary<int, int>();
+		TextAsset file = Resources.Load<TextAsset>("XpValue");
+		string[] Sequence = file.text.Split('\n');
+		char sp = ' ';
+		foreach (var num in Sequence)
+		{
+			string[] word = num.Split(sp);
+			xpList.Add(int.Parse(word[0].ToString()), int.Parse(word[1].ToString()));
+			Debug.Log($"stageExperienceValueList : key : {int.Parse(word[0].ToString())} , value : {int.Parse(word[1].ToString())}");
+
+		}
+	}
+
     public Character Get_CharacterData(int _index)
     {
         return characterData.characters[_index];
@@ -175,19 +193,19 @@ public class DataBase : GenericSingletonClass<DataBase>
         switch(currentSelectEnemyIndex)
         {
             case 0:
-				currentGold =  currentGold + 50;
+                currentGold += 50;
 				break;
             case 1:
-				currentGold = currentGold + 100;
+				currentGold += 100;
 				break;
             case 2:
-				currentGold = currentGold + 150;
+				currentGold += 150;
 				break;
             case 3:
-				currentGold = currentGold + 200;
+				currentGold += 200;
 				break;
             case 4:
-				currentGold = currentGold + 250;
+				currentGold += 250;
 				break;
         }
     }
@@ -197,9 +215,39 @@ public class DataBase : GenericSingletonClass<DataBase>
         return stageExperienceValueList[currentSelectEnemyIndex];
 	}
 
-    public void Set_CharacterDataCurrentXP(int _index,int _value)
+    public bool Set_CharacterDataCurrentXP(int _index,int _value)
     {
+        bool check = false;
+        int currentLevel = characterData.characters[_index].level;
 		characterData.characters[_index].currentXP = characterData.characters[_index].currentXP + _value;
+        UpdateCharacterLevel(_index);
+
+        if(currentLevel < characterData.characters[_index].level)
+        {
+            check = true;
+		}
+        else
+        {
+            check = false;
+        }
+		return check;
+	}
+
+	public void UpdateCharacterLevel(int _index)
+	{
+        if(characterData.characters[_index].level >= 101)
+        {
+            return;
+        }
+        
+		if (characterData.characters[_index].currentXP >= xpList[characterData.characters[_index].level])
+		{
+            characterData.characters[_index].level += 1;
+            characterData.characters[_index].baseStats.attack +=3;
+			characterData.characters[_index].baseStats.defense += 3;
+			characterData.characters[_index].baseStats.health += 3;
+			UpdateCharacterLevel(_index);
+		}
 	}
 
 }

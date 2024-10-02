@@ -191,7 +191,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().SetParent(get_BattleEffecController.Get_AttackArea());
 		yield return new WaitForEndOfFrame();
 
-		float moveSpeed = 350.0f;
+		float moveSpeed = 450;
 
 		//해당 몬스터 위치 이동
 		while(Vector3.Distance(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position, get_BattleCharctreController.get_BattleEnemy(currentSelectEnemyIndex).Get_AttackPos().position) > 0.001f)
@@ -233,7 +233,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			get_BattleCharctreController.get_BattleEnemy(currentSelectEnemyIndex).Get_EnemyImage().color = new Color(1, alpha, alpha, 1);
 			yield return new WaitForEndOfFrame();
 		}
-		get_BattleCharctreController.get_BattleEnemy(currentSelectEnemyIndex).Calculation_AttackDamages(get_BattleCharctreController.get_BattlePlayerCharcter(currentSelectEnemyIndex).Get_AttackDamages());
+		get_BattleCharctreController.get_BattleEnemy(currentSelectEnemyIndex).Calculation_AttackDamages(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_AttackDamages());
 		yield return new WaitForEndOfFrame();
 
 		//원 위치 이동
@@ -388,7 +388,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			yield return new WaitForEndOfFrame();
 		}
 		yield return new WaitForSeconds(1f);
-		Check_bCharacterAlivel();
+		FunctionChange_TurnOver();
 	}	
 
 
@@ -413,7 +413,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		get_BattleCharctreController.get_BattleEnemy(_index).Get_EnemyImage().transform.SetParent(get_BattleEffecController.Get_AttackArea());
 		yield return new WaitForEndOfFrame();
 
-		float moveSpeed = 350.0f;
+		float moveSpeed = 450;
 
 		//해당 캐릭터로 이동 위치 이동
 		while (Vector3.Distance(get_BattleCharctreController.get_BattleEnemy(_index).Get_EnemyImage().transform.position, get_BattleCharctreController.get_BattlePlayerCharcter(randomPlayerIndex).Get_AttackPos().position) > 0.001f)
@@ -495,6 +495,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	public void FuntionStatsCnage_bCharacterAlivel(int _index)
 	{
 		bCurrentCharcterAlivel[_index] = false;
+		Check_bCharacterAlivel();
 	}
 
 	public void Check_bCharacterAlivel()
@@ -504,11 +505,11 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		if (hasFalse)
 		{
 			Debug.Log("아직 캐릭터 생존하고 있습니다");
-			FunctionChange_TurnOver();
 		}
 		else
 		{
 			get_BattlePopUpController.Open_PopUp(4);
+			StopCoroutine("Start_EnemyAction");
 			Debug.Log("모든 캐릭터가 죽었습니다");
 		}
 	}
