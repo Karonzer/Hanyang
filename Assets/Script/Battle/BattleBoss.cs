@@ -169,7 +169,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 					currentHealth = 0;
 					healthpar.fillAmount = 0; ;
 					healthText.text = "0";
-					StartCoroutine("Die_Enemy");
+					StartCoroutine("Die_Boss");
 				}
 				else
 				{
@@ -187,7 +187,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 					currentHealth = 0;
 					healthpar.fillAmount = 0; ;
 					healthText.text = "0";
-					StartCoroutine("Die_Enemy");
+					StartCoroutine("Die_Boss");
 				}
 				else
 				{
@@ -207,7 +207,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 				currentHealth = 0;
 				healthpar.fillAmount = 0; ;
 				healthText.text = "0";
-				StartCoroutine("Die_Enemy");
+				StartCoroutine("Die_Boss");
 			}
 			else
 			{
@@ -235,7 +235,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 			yield return new WaitForEndOfFrame();
 		}
 		BGSC.Instance.get_BattleContentController.FunctionGain_handlecurrentCharcterIndexXP();
-		BGSC.Instance.get_BattleContentController.FuntionStatsCnage_bCurrentEnemyAlivel(currentIndex);
+		BGSC.Instance.get_BattleContentController.FuntionStatsCnage_bCurrentBossAlivel();
 		yield return new WaitForEndOfFrame();
 		transform.gameObject.SetActive(false);
 	}

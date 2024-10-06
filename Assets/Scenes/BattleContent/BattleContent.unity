@@ -12590,6 +12590,7 @@ MonoBehaviour:
   currentSelectEnemyIndex: 0
   bCurrentEnemyAlivel: 
   attcakAlivePlayers: 
+  bcurrentBossAlivel: 0
   currentEnemyXp: 0
   bcurrentMyTurn: 0
 --- !u!114 &1749921130

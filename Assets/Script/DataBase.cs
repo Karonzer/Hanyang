@@ -64,8 +64,10 @@ public class DataBase : GenericSingletonClass<DataBase>
     [SerializeField] private int currentGold;
 
     private Dictionary<int, int> stageExperienceValueList;
+	private Dictionary<int, int> bossStageExperienceValueList;
 
-    private Dictionary<int, int> xpList;
+	private Dictionary<int, int> xpList;
+
 
 	private void Awake()
 	{
@@ -80,7 +82,8 @@ public class DataBase : GenericSingletonClass<DataBase>
         Load_BossData();
 		Load_CurrnetGold();
         Load_StageExperienceValue();
-        Load_XpList();
+		Load_BossStageExperienceValueList();
+		Load_XpList();
 	}
 
     private void LoadCharacterData()
@@ -165,9 +168,26 @@ public class DataBase : GenericSingletonClass<DataBase>
             Debug.Log($"stageExperienceValueList : key : {int.Parse(word[0].ToString())} , value : {int.Parse(word[1].ToString())}");
 
         }
+
 	}
 
-    private void Load_XpList()
+	private void Load_BossStageExperienceValueList()
+	{
+		bossStageExperienceValueList = new Dictionary<int, int>();
+		TextAsset file = Resources.Load<TextAsset>("BossStageExperienceValue");
+		string[] Sequence = file.text.Split('\n');
+		char sp = ' ';
+		foreach (var num in Sequence)
+		{
+			string[] word = num.Split(sp);
+			bossStageExperienceValueList.Add(int.Parse(word[0].ToString()), int.Parse(word[1].ToString()));
+			Debug.Log($"BossStageExperienceValue : key : {int.Parse(word[0].ToString())} , value : {int.Parse(word[1].ToString())}");
+
+		}
+
+	}
+
+	private void Load_XpList()
     {
         xpList = new Dictionary<int, int>();
 		TextAsset file = Resources.Load<TextAsset>("XpValue");
@@ -243,7 +263,12 @@ public class DataBase : GenericSingletonClass<DataBase>
         return stageExperienceValueList[currentSelectEnemyIndex];
 	}
 
-    public bool Set_CharacterDataCurrentXP(int _index,int _value)
+	public int Get_BossStageExperienceValueList()
+	{
+		return bossStageExperienceValueList[currentSelectEnemyIndex];
+	}
+
+	public bool Set_CharacterDataCurrentXP(int _index,int _value)
     {
         bool check = false;
         int currentLevel = characterData.characters[_index].level;
