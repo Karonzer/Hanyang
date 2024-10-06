@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,21 +54,47 @@ public class BattleAttackPopUp : MonoBehaviour, IGet_BattleAttackPopUp
 	public void Initialize_SelectPopUp()
 	{
 		Transform pos = popUps[0];
-		outlines = new Outline[pos.GetChild(1).childCount];
-		int num = DataBase.Instance.Get_CurrentSelectEnemyIndex();
+
 		for (int i = 0; i < pos.GetChild(1).childCount; i++)
 		{
-			int index = i;
-			Transform btn = pos.GetChild(1).GetChild(index);
+			pos.GetChild(1).GetChild(i).gameObject.SetActive(false);
+		}
 
+		if(DataBase.Instance.Get_bClickBoss())
+		{
+			int index = 1;
+			outlines = new Outline[index];
+			int num = DataBase.Instance.Get_CurrentSelectEnemyIndex();
+
+			Transform btn = pos.GetChild(1).GetChild(index);
 			Button button = btn.GetComponent<Button>();
 			button.onClick.AddListener(() => Click_SelectBtn(index));
+			outlines[0] = btn.GetComponent<Outline>();
 
-			outlines[index] = btn.GetComponent<Outline>();
-
+			pos.GetChild(1).GetChild(index).gameObject.SetActive(true);
 			btn.GetChild(0).GetComponent<Image>().sprite
-		= BGSC.Instance.get_BattleContentController.Get_BattleSpriteController()
-			.Get_EnemyImage(num);
+			= BGSC.Instance.get_BattleContentController.Get_BattleSpriteController()
+			.Get_BossImage(num);
+		}
+		else
+		{
+			outlines = new Outline[pos.GetChild(1).childCount];
+			int num = DataBase.Instance.Get_CurrentSelectEnemyIndex();
+			for (int i = 0; i < pos.GetChild(1).childCount; i++)
+			{
+				int index = i;
+				Transform btn = pos.GetChild(1).GetChild(index);
+
+				Button button = btn.GetComponent<Button>();
+				button.onClick.AddListener(() => Click_SelectBtn(index));
+
+				outlines[index] = btn.GetComponent<Outline>();
+
+				pos.GetChild(1).GetChild(i).gameObject.SetActive(true);
+				btn.GetChild(0).GetComponent<Image>().sprite
+			= BGSC.Instance.get_BattleContentController.Get_BattleSpriteController()
+				.Get_EnemyImage(num);
+			}
 		}
 
 		nextBtn = pos.GetChild(2).GetChild(1).GetComponent<Button>();
@@ -77,34 +106,45 @@ public class BattleAttackPopUp : MonoBehaviour, IGet_BattleAttackPopUp
 
 	private void Setting_SelectPopUp()
 	{
-		for (int i = 0; i < outlines.Length; i++)
+		if(DataBase.Instance.Get_bClickBoss())
 		{
-			outlines[i].enabled= false;
+			outlines[0].enabled = false;
+			nextBtn.interactable = false;
+			outlines[0].gameObject.SetActive(BGSC.Instance.get_BattleContentController.Get_bCurrentBossAlivel());
 		}
-		nextBtn.interactable= false;
-
-		for(int i = 0; i < BGSC.Instance.get_BattleContentController.Get_bCurrentEnemyAlivel().Length;i++)
+		else
 		{
-			if (BGSC.Instance.get_BattleContentController.Get_bCurrentEnemyAlivel()[i] == true)
+			for (int i = 0; i < outlines.Length; i++)
 			{
-				outlines[i].gameObject.SetActive(true);
+				outlines[i].enabled = false;
 			}
-			else
+			nextBtn.interactable = false;
+
+			for (int i = 0; i < BGSC.Instance.get_BattleContentController.Get_bCurrentEnemyAlivel().Length; i++)
 			{
-				outlines[i].gameObject.SetActive(false);
-			}	
+				outlines[i].gameObject.SetActive(BGSC.Instance.get_BattleContentController.Get_bCurrentEnemyAlivel()[i]);
+			}
 		}
+
 	}
 
 	private void Click_SelectBtn(int _index)
 	{
-		for (int i = 0; i < outlines.Length; i++)
+		if(DataBase.Instance.Get_bClickBoss())
 		{
-			outlines[i].enabled = false;
+			outlines[0].enabled = true;
+			nextBtn.interactable = true;
 		}
-		outlines[_index].enabled = true;
-		nextBtn.interactable = true;
-		BGSC.Instance.get_BattleContentController.Set_CurrentSelectEnemyIndex(_index);
+		else
+		{
+			for (int i = 0; i < outlines.Length; i++)
+			{
+				outlines[i].enabled = false;
+			}
+			outlines[_index].enabled = true;
+			nextBtn.interactable = true;
+			BGSC.Instance.get_BattleContentController.Set_CurrentSelectEnemyIndex(_index);
+		}
 	}
 
 	private void Click_CloseBtn()

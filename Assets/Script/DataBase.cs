@@ -56,6 +56,8 @@ public class DataBase : GenericSingletonClass<DataBase>
 
     [SerializeField] private EnemyData enemyData;
 
+    [SerializeField] private EnemyData bossData;
+
     [SerializeField] private bool bClickBoss;
     [SerializeField] private int currentSelectEnemyIndex;
 
@@ -75,7 +77,8 @@ public class DataBase : GenericSingletonClass<DataBase>
     {
         LoadCharacterData();
         Load_EnemyData();
-        Load_CurrnetGold();
+        Load_BossData();
+		Load_CurrnetGold();
         Load_StageExperienceValue();
         Load_XpList();
 	}
@@ -122,7 +125,27 @@ public class DataBase : GenericSingletonClass<DataBase>
 		}
 	}
 
-    private void Load_CurrnetGold()
+	private void Load_BossData()
+	{
+		Debug.Log("Load_BossData");
+		TextAsset enemyjsonFile = Resources.Load<TextAsset>("Boss_data");
+		if (enemyjsonFile != null)
+		{
+			Debug.Log("enemyjsonFile");
+			bossData = JsonUtility.FromJson<EnemyData>(enemyjsonFile.text);
+
+			foreach (var enemyStats in enemyData.enemyStats)
+			{
+				Debug.Log($"Character ID: {enemyStats.id}, Name: {enemyStats.name}");
+			}
+		}
+		else
+		{
+			Debug.LogError("Failed to load characters_data.json from Resources folder.");
+		}
+	}
+
+	private void Load_CurrnetGold()
     {
 		TextAsset jsonFile = Resources.Load<TextAsset>("Gold");
         GoldData goldData =  JsonUtility.FromJson<GoldData>(jsonFile.text);
@@ -168,6 +191,11 @@ public class DataBase : GenericSingletonClass<DataBase>
     {
         return enemyData.enemyStats[_index];
     }
+
+	public EnemyStats GetBossData(int _index)
+	{
+		return bossData.enemyStats[_index];
+	}
 
 	public bool Get_bClickBoss()
     { return bClickBoss; }

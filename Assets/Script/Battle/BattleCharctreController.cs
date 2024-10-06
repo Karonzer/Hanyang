@@ -8,6 +8,7 @@ public interface IGet_BattleCharctreController
 	public void Change_myCharcterOutLine();
 	public IGet_BattlePlayerCharcter get_BattlePlayerCharcter(int _index);
 	public IGet_BattleEnemy get_BattleEnemy(int _index);
+	public IGet_BattleBoss get_BattleBoss();
 }
 
 public class BattleCharctreController : MonoBehaviour, IGet_BattleCharctreController
@@ -19,6 +20,9 @@ public class BattleCharctreController : MonoBehaviour, IGet_BattleCharctreContro
 
 	[SerializeField] private IGet_BattlePlayerCharcter[] battlePlayerCharcters;
 	[SerializeField] private IGet_BattleEnemy[] battleEnemies;
+	[SerializeField] private IGet_BattleBoss battleBoss;
+
+
 
 
 
@@ -27,6 +31,7 @@ public class BattleCharctreController : MonoBehaviour, IGet_BattleCharctreContro
 		Initialize_CharcterAndEnemy();
 		Initialize_battlePlayerCharcters();
 		Initialize_battleEnemies();
+		Initialize_battleBoss();
 	}
 
 	private void OnEnable()
@@ -74,11 +79,25 @@ public class BattleCharctreController : MonoBehaviour, IGet_BattleCharctreContro
 		}
 	}	
 
+	private void Initialize_battleBoss()
+	{
+		battleBoss = middleBoss.GetChild(0).GetComponent<IGet_BattleBoss>();
+	}
+
 	private void Start_SettingEnemyAndboss()
 	{
 		
 		if (DataBase.Instance.Get_bClickBoss())
 		{
+			middleBoss.gameObject.SetActive(true);
+			int index = DataBase.Instance.Get_CurrentSelectEnemyIndex();
+			BGSC.Instance.get_BattleContentController.Initialize_bCurrentBossAlivel();
+			battleBoss.Function_InitializemyBoss();
+			battleBoss.Function_SettingmyBoss();
+			battleBoss.Get_BossImage().sprite = BGSC.Instance.get_BattleContentController.Get_BattleSpriteController().Get_BossImage(index);
+			battleBoss.Get_BattleBossObj().gameObject.SetActive(true);
+			battleBoss.Setting_BossStats(DataBase.Instance.GetBossData(index));
+			BGSC.Instance.get_BattleContentController.Set_currentEnemyXp(DataBase.Instance.GetBossData(index).currentXP);
 		}
 		else
 		{
@@ -118,8 +137,8 @@ public class BattleCharctreController : MonoBehaviour, IGet_BattleCharctreContro
 		return battleEnemies[_index];
 	}
 
-
-
-
-
+	public IGet_BattleBoss get_BattleBoss()
+	{
+		return battleBoss;
+	}
 }

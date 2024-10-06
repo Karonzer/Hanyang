@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BossSprite
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 255631ea8476e244f85d32eb71b3e32b, type: 3}
+    - {fileID: 2800000, guid: 9fb3d9d60cdd48b42b84a35be0c1a7c2, type: 3}
+    - {fileID: 2800000, guid: 3f12eb05be52ea745943098ce78a3fc3, type: 3}
+    - {fileID: 2800000, guid: ced674c26c6f7bb419ec7049cb3064cf, type: 3}
+    - {fileID: 2800000, guid: d1a993ab02563c74e8e86654b74daae6, type: 3}
+    - {fileID: 2800000, guid: 2e00bdef97a72b141a75154df2a6a557, type: 3}
+    - {fileID: 2800000, guid: 393ae24fce2af0740b5801c0b38818bc, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - ced674c26c6f7bb419ec7049cb3064cf: 21300000
+    - 3f12eb05be52ea745943098ce78a3fc3: 21300000
+    - 9fb3d9d60cdd48b42b84a35be0c1a7c2: 21300000
+    - 255631ea8476e244f85d32eb71b3e32b: 21300000
+    - d1a993ab02563c74e8e86654b74daae6: 21300000
+    - 393ae24fce2af0740b5801c0b38818bc: 21300000
+    - 2e00bdef97a72b141a75154df2a6a557: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ced674c26c6f7bb419ec7049cb3064cf, type: 3}
+  - {fileID: 21300000, guid: 3f12eb05be52ea745943098ce78a3fc3, type: 3}
+  - {fileID: 21300000, guid: 9fb3d9d60cdd48b42b84a35be0c1a7c2, type: 3}
+  - {fileID: 21300000, guid: 255631ea8476e244f85d32eb71b3e32b, type: 3}
+  - {fileID: 21300000, guid: d1a993ab02563c74e8e86654b74daae6, type: 3}
+  - {fileID: 21300000, guid: 393ae24fce2af0740b5801c0b38818bc, type: 3}
+  - {fileID: 21300000, guid: 2e00bdef97a72b141a75154df2a6a557, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Boss_3
+  - Boss_2
+  - Boss_1
+  - Boss_0
+  - Boss_5
+  - Boss_6
+  - Boss_4
+  m_RenderDataMap: {}
+  m_Tag: BossSprite
+  m_IsVariant: 0

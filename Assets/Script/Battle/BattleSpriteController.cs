@@ -8,6 +8,7 @@ public interface IGet_BattleSpriteController
 	public Sprite Get_IconImage(int _index);
 	public Sprite Get_EnemyImage(int _index);
 	public Sprite Get_BGImage(int _index);
+	public Sprite Get_BossImage(int _index);
 }
 
 public class BattleSpriteController : MonoBehaviour, IGet_BattleSpriteController
@@ -15,6 +16,7 @@ public class BattleSpriteController : MonoBehaviour, IGet_BattleSpriteController
 	public SpriteAtlas iconSpriteAtlas;
 	public SpriteAtlas enemySpriteAtlas;
 	public SpriteAtlas bgSpriteAtlas;
+	public SpriteAtlas bossSpriteAtlas;
 
 	public Sprite Get_IconImage(int _index)
 	{
@@ -44,5 +46,11 @@ public class BattleSpriteController : MonoBehaviour, IGet_BattleSpriteController
 	{
 		string name = "BG_" + _index.ToString();
 		return bgSpriteAtlas.GetSprite(name);
+	}
+
+	public Sprite Get_BossImage(int _index)
+	{
+		string name = "Boss_" + _index.ToString();
+		return bossSpriteAtlas.GetSprite(name);
 	}
 }

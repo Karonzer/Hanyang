@@ -1,0 +1,55 @@
+{
+  "enemyStats": [
+    {
+      "id": 1,
+      "name": "Enmey_01",
+      "currentXP": 500,
+      "baseStats": {
+        "attack": 10,
+        "defense": 10,
+        "health": 1000
+      }
+    },
+    {
+      "id": 2,
+      "name": "Enmey_02",
+      "currentXP": 1000,
+      "baseStats": {
+        "attack": 50,
+        "defense": 30,
+        "health": 2000
+      }
+    },
+    {
+      "id": 3,
+      "name": "Enmey_03",
+      "currentXP": 1500,
+      "baseStats": {
+        "attack": 100,
+        "defense": 80,
+        "health": 5000
+      }
+    },
+    {
+      "id": 4,
+      "name": "Enmey_04",
+      "currentXP": 2000,
+      "baseStats": {
+        "attack": 100,
+        "defense": 80,
+        "health": 5000
+      }
+    },
+    {
+      "id": 5,
+      "name": "Enmey_05",
+      "currentXP": 2500,
+      "baseStats": {
+        "attack": 100,
+        "defense": 80,
+        "health": 5000
+      }
+    }
+
+  ]
+}

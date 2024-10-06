@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,9 @@ public interface IGet_BattleContentController
 	public int[] Get_HandlecurrentCharcterIndex();
 	public void Set_currentEnemyXp(int _index);
 	public int Get_currentEnemyXp();
+	public void Initialize_bCurrentBossAlivel();
+	public bool Get_bCurrentBossAlivel();
+	public void Set_bCurrentBossAlivel(bool _bool);
 }
 
 public class BattleContentController : MonoBehaviour, IGet_BattleContentController
@@ -58,6 +62,8 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	[SerializeField] private int currentSelectEnemyIndex;
 	[SerializeField] private bool[] bCurrentEnemyAlivel;
 	[SerializeField] private List<int> attcakAlivePlayers;
+
+	[SerializeField] private bool bcurrentBossAlivel;
 
 	[SerializeField] private int currentEnemyXp;
 
@@ -174,20 +180,103 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		}
 	}
 
+	public void Initialize_bCurrentBossAlivel()
+	{
+		bcurrentBossAlivel = true;
+	}	
+
 	public void Start_CharcterBattle()
 	{
 		get_BattleUiController.OnOff_BottomBar(false);
 		get_BattleEffecController.Get_DontClick().gameObject.SetActive(true);
 		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_icon().gameObject.SetActive(true);
 		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_icon().sprite = get_BattleSpriteController.Get_IconImage(0);
-		StartCoroutine("Start_CharcterBattleDelay");
-		Debug.Log("Start_CharcterBattle");
+		if(DataBase.Instance.Get_bClickBoss())
+		{
+			StartCoroutine("Start_CharcterBattleDelayToBoss");
+			Debug.Log("Start_CharcterBattleDelayToBoss");
+		}
+		else
+		{
+			StartCoroutine("Start_CharcterBattleDelay");
+			Debug.Log("Start_CharcterBattle");
+		}
+	}
+	//캐릭터가 보스한테 공격하는 함수
+	IEnumerator Start_CharcterBattleDelayToBoss()
+	{
+		yield return new WaitForSeconds(0.25f);
+		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().SetParent(get_BattleEffecController.Get_AttackArea());
+		yield return new WaitForEndOfFrame();
+
+		float moveSpeed = 450;
+
+		//해당 몬스터 위치 이동
+		while (Vector3.Distance(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position, get_BattleCharctreController.get_BattleBoss().Get_AttackPos().position) > 0.001f)
+		{
+			get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position =
+				Vector3.MoveTowards(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position,
+				get_BattleCharctreController.get_BattleBoss().Get_AttackPos().position,
+				moveSpeed * Time.deltaTime);
+			yield return new WaitForSeconds(0.001f);
+		}
+
+		Debug.Log("도착");
+		float blinkSpeed = 7.5f;
+		bool increasing = true;
+		float alpha = 1;
+		bool stop = true;
+		while (stop)
+		{
+			if (increasing)
+			{
+				alpha -= Time.deltaTime * blinkSpeed;
+				if (alpha <= 0f)
+				{
+					alpha = 0f;
+					increasing = false;
+				}
+			}
+			else
+			{
+				alpha += Time.deltaTime * blinkSpeed;
+				if (alpha >= 1f)
+				{
+					alpha = 1f;
+					increasing = true;
+					stop = false;
+				}
+			}
+
+			get_BattleCharctreController.get_BattleBoss().Get_BossImage().color = new Color(1, alpha, alpha, 1);
+			yield return new WaitForEndOfFrame();
+		}
+		get_BattleCharctreController.get_BattleBoss().Calculation_AttackDamages(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_AttackDamages());
+		yield return new WaitForEndOfFrame();
+
+		//원 위치 이동
+		while (Vector3.Distance(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position, get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_CharcterPos().position) > 0.001f)
+		{
+			get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position =
+				Vector3.MoveTowards(get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().position,
+				get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_CharcterPos().position,
+				moveSpeed * Time.deltaTime);
+			yield return new WaitForSeconds(0.001f);
+		}
+
+		Debug.Log("원 위치 도착");
+		yield return new WaitForSeconds(1f);
+		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).ReSetting_myCharacter();
+		get_BattleCharctreController.Change_myCharcterOutLine();
+		get_BattleEffecController.Get_DontClick().gameObject.SetActive(false);
+		Check_bCheckCharcterAction();
+		yield return new WaitForEndOfFrame();
 	}
 
 	//캐릭터가 몬스터를 공격하는 함수
-	IEnumerator Start_CharcterBattleDelay()
+	IEnumerator Start_CharcterBattleDelayToEnemy()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.25f);
 		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacter().SetParent(get_BattleEffecController.Get_AttackArea());
 		yield return new WaitForEndOfFrame();
 
@@ -313,11 +402,6 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			get_BattleUiController.ReSetting_TurnText(1);
 			get_BattlePopUpController.ReSettin_GuidePopText(1);
 			StartCoroutine("Opne_GuidePopUp",true);
-
-			for(int i = 0; i < 3;i++)
-			{
-				get_BattleCharctreController.get_BattleEnemy(i).Set_bDefenseState(false);
-			}
 		}
 		else
 		{
@@ -350,16 +434,71 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		yield return new WaitForSeconds(1.5f);
 		get_BattlePopUpController.Close_PopUp();
 
-		//몬스터 행동
-		if(_bool == true)
+		if(DataBase.Instance.Get_bClickBoss())
 		{
-			StartCoroutine("Start_EnemyAction");
+
+			//보스 행동
+			if (_bool == true)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					get_BattleCharctreController.get_BattleBoss().Set_bDefenseState(false);
+				}
+				StartCoroutine("Start_BossAction");
+			}
 		}
+		else
+		{
+			//몬스터 행동
+			if (_bool == true)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					get_BattleCharctreController.get_BattleEnemy(i).Set_bDefenseState(false);
+				}
+				StartCoroutine("Start_EnemyAction");
+			}
+		}
+
+	}
+
+	IEnumerator Start_BossAction()
+	{
+		yield return new WaitForSeconds(0.5f);
+		if (bcurrentBossAlivel == true)
+		{
+			int randomValue = Random.Range(0, 100);  // 0부터 100 사이의 랜덤 값 생성
+
+			if (randomValue < 45)  // 75% 확률로 공격
+			{
+				Debug.Log("보스 공격");
+				yield return new WaitForSeconds(1f); //StartCoroutine("Start_EnemyAttack", index);
+			}
+			else if(randomValue < 90)
+			{
+				Debug.Log("보스 전체 공격");
+				yield return new WaitForSeconds(1f); //StartCoroutine("Start_EnemyAttack", index);
+			}
+			else if (randomValue < 95)  // 15% 확률로 방어
+			{
+				Debug.Log("보스 방어");
+				get_BattleCharctreController.get_BattleBoss().Set_bDefenseState(true);
+				yield return new WaitForEndOfFrame();
+			}
+			else  // 10% 확률로 회복
+			{
+				Debug.Log("보스 회복");
+				get_BattleCharctreController.get_BattleBoss().Recover_CurrentHealth();
+				yield return new WaitForEndOfFrame();
+			}
+		}
+		yield return new WaitForSeconds(1f);
+		FunctionChange_TurnOver();
 	}
 
 	IEnumerator Start_EnemyAction()
 	{
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.5f);
 		for(int i = 0; i < bCurrentEnemyAlivel.Length;i++)
 		{
 			int index = i;
@@ -549,5 +688,15 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	public int Get_currentEnemyXp()
 	{
 		return currentEnemyXp;
+	}
+
+	public bool Get_bCurrentBossAlivel()
+	{
+		return bcurrentBossAlivel;
+	}
+
+	public void Set_bCurrentBossAlivel(bool _bool)
+	{
+		bcurrentBossAlivel = _bool;
 	}
 }
