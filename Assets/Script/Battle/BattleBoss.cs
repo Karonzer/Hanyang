@@ -18,6 +18,7 @@ public interface IGet_BattleBoss
 	public void Recover_CurrentHealth();
 	public void Set_bDefenseState(bool _bool);
 	public int Get_EnemyXp();
+	public Animator Get_Animator();
 }
 
 public class BattleBoss : MonoBehaviour, IGet_BattleBoss
@@ -33,6 +34,8 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 	[SerializeField] private Image healthpar;
 	[SerializeField] private Text healthText;
 	[SerializeField] private Transform attackPos;
+
+	[SerializeField] private Animator animator;
 
 	[SerializeField] private bool bDefenseState;
 
@@ -72,7 +75,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 		healthpar = transform.GetChild(1).GetChild(0).GetComponent<Image>();
 		healthText = transform.GetChild(1).GetChild(1).GetComponent<Text>();
 		attackPos = transform.GetChild(2);
-
+		animator = bossImage.GetComponent<Animator>();
 		currentIndex = transform.GetSiblingIndex();
 	}
 
@@ -80,6 +83,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 	{
 		bossImage.color = new Color(1, 1, 1, 1);
 		stateImage.gameObject.SetActive(false);
+		animator.enabled = false;
 	}
 
 	private void Setting_myBoss()
@@ -245,4 +249,9 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 		return bossStats.currentXP;
 	}
 
+
+	public Animator Get_Animator()
+	{
+		return animator;
+	}
 }
