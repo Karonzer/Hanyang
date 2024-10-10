@@ -2,7 +2,7 @@
   "enemyStats": [
     {
       "id": 1,
-      "name": "Boss_01",
+      "name": "Boss_0",
       "currentXP": 500,
       "baseStats": {
         "attack": 10,
@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "name": "Boss_02",
+      "name": "Boss_1",
       "currentXP": 1000,
       "baseStats": {
         "attack": 50,
@@ -22,7 +22,7 @@
     },
     {
       "id": 3,
-      "name": "Boss_03",
+      "name": "Boss_2",
       "currentXP": 1500,
       "baseStats": {
         "attack": 100,
@@ -32,7 +32,7 @@
     },
     {
       "id": 4,
-      "name": "Boss_04",
+      "name": "Boss_3",
       "currentXP": 2000,
       "baseStats": {
         "attack": 100,
@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "name": "Boss_05",
+      "name": "Boss_4",
       "currentXP": 2500,
       "baseStats": {
         "attack": 100,

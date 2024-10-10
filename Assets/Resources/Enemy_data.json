@@ -2,7 +2,7 @@
   "enemyStats": [
     {
       "id": 1,
-      "name": "Enmey_01",
+      "name": "E_0",
       "currentXP": 50,
       "baseStats": {
         "attack": 10,
@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "name": "Enmey_02",
+      "name": "E_1",
       "currentXP": 100,
       "baseStats": {
         "attack": 50,
@@ -22,7 +22,7 @@
     },
     {
       "id": 3,
-      "name": "Enmey_03",
+      "name": "E_2",
       "currentXP": 150,
       "baseStats": {
         "attack": 100,
@@ -32,7 +32,7 @@
     },
     {
       "id": 4,
-      "name": "Enmey_04",
+      "name": "E_3",
       "currentXP": 200,
       "baseStats": {
         "attack": 100,
@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "name": "Enmey_05",
+      "name": "E_4",
       "currentXP": 250,
       "baseStats": {
         "attack": 100,
