@@ -563,8 +563,9 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		get_BattleCharctreController.get_BattleBoss().Get_Animator().enabled = true;
 		yield return new WaitForEndOfFrame();
 
-
-		string aniName = "Attack_" + DataBase.Instance.Get_CurrentSelectEnemyIndex().ToString();
+		//임시
+		//string aniName = "Attack_" + DataBase.Instance.Get_CurrentSelectEnemyIndex().ToString();
+		string aniName = "Attack_0";
 		Animator bossAnimator = get_BattleCharctreController.get_BattleBoss().Get_Animator();
 		bossAnimator.SetTrigger(aniName);
 

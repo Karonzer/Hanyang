@@ -2,29 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class MainController : MonoBehaviour
 {
 	[SerializeField] private Transform[] popUps;
 	[SerializeField] private int currentPopUpIndex;
 
+	[SerializeField] private Text goldText;
+
 	private void Awake()
 	{
 		Initialize_SelectBtn();
 		Initialize_PopUps();
-		Initialize_BattleSelectPopUp();
+		Initialize_GoldText();
 	}
 
 	private void OnEnable()
 	{
 		Setting_PopUps();
+		Funtion_SettingGoldText();
 		currentPopUpIndex = 0;
 	}
 
 	private void Initialize_SelectBtn()
 	{
-		Transform pos = transform.GetChild(0).GetChild(0).GetChild(1);
+		Transform pos = transform.GetChild(0).GetChild(0).Find("SelectBtn");
 		for(int i = 0; i < pos.childCount;i++)
 		{
 			int index = i;
@@ -37,6 +39,11 @@ public class MainController : MonoBehaviour
 	{
 		currentPopUpIndex = _index;
 		popUps[currentPopUpIndex].gameObject.SetActive(true);
+
+		if(currentPopUpIndex ==0)
+		{
+			DataBase.Instance.Set_bClickBoss(false);
+		}
 	}
 
 	private void Click_ClosePopUp()
@@ -51,7 +58,7 @@ public class MainController : MonoBehaviour
 		popUps = new Transform[3];
 		for(int i = 0; i < popUps.Length;i++)
 		{
-			popUps[i] = pos.GetChild(i + 2);
+			popUps[i] = pos.GetChild(i + 3);
 		}
 	}
 
@@ -63,29 +70,14 @@ public class MainController : MonoBehaviour
 		}
 	}
 
-	private void Initialize_BattleSelectPopUp()
+	private void Initialize_GoldText()
 	{
-		Transform pos = popUps[0].GetChild(0);
-		Transform enemyPos = pos.GetChild(1).GetChild(0).GetChild(0).GetChild(0);
-		for (int i = 0; i< enemyPos.childCount;i++)
-		{
-			int index = i;
-			Button button = enemyPos.GetChild(i).GetComponent<Button>();
-			button.onClick.AddListener(() => Loding_LoadBattleContentScene(index));
-		}
-
-		Button close = pos.GetChild(0).GetChild(3).GetComponent<Button>();
-		close.onClick.AddListener(() => Click_ClosePopUp());
+		goldText = transform.GetChild(0).GetChild(0).Find("UI").GetChild(0).GetChild(0).GetComponent<Text>();
 	}
 
-
-
-	public void Loding_LoadBattleContentScene(int _index)
-    {
-        DataBase.Instance.Set_bClickBoss(false);
-        DataBase.Instance.Set_CurrentSelectEnemyIndex(_index);
-		Loding.LoadScene("BattleContent");
-		Resources.UnloadUnusedAssets();
-		System.GC.Collect();
+	public void Funtion_SettingGoldText()
+	{
+		goldText.text = "현재 소지금 :  " + DataBase.Instance.Get_CurrentGold().ToString();
 	}
+
 }

@@ -49,6 +49,16 @@
         "defense": 80,
         "health": 100
       }
+    },
+    {
+      "id": 6,
+      "name": "Boss_5",
+      "currentXP": 2500,
+      "baseStats": {
+        "attack": 100,
+        "defense": 80,
+        "health": 100
+      }
     }
 
   ]

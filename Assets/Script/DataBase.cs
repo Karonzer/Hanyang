@@ -258,6 +258,11 @@ public class DataBase : GenericSingletonClass<DataBase>
         }
     }
 
+	public int Get_CurrentGold()
+	{
+		return currentGold;
+	}
+
     public int Get_StageExperienceValueList()
     {
         return stageExperienceValueList[currentSelectEnemyIndex];
