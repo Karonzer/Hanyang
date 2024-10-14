@@ -54,11 +54,11 @@ public class MainController : MonoBehaviour
 
 	private void Initialize_PopUps()
 	{
-		Transform pos = transform.GetChild(0).GetChild(0);
-		popUps = new Transform[3];
+		Transform pos = transform.GetChild(0).GetChild(0).Find("PopUps");
+		popUps = new Transform[pos.childCount];
 		for(int i = 0; i < popUps.Length;i++)
 		{
-			popUps[i] = pos.GetChild(i + 3);
+			popUps[i] = pos.GetChild(i);
 		}
 	}
 
