@@ -35,6 +35,7 @@ public class EnemyStats
 	public string name;
 	public int currentXP;
 	public CharacterStats baseStats;
+	public int gold;
 }
 
 [System.Serializable]
@@ -47,6 +48,13 @@ public class EnemyData
 public class GoldData
 {
 	public int currentGold;
+}
+
+[System.Serializable]
+public class CheckListData
+{
+	public int DispatchLevel;
+	public int TrainingLevel;
 }
 
 public class DataBase : GenericSingletonClass<DataBase>
@@ -68,6 +76,8 @@ public class DataBase : GenericSingletonClass<DataBase>
 
 	private Dictionary<int, int> xpList;
 
+	[SerializeField] CheckListData checkListData;
+
 
 	private void Awake()
 	{
@@ -84,6 +94,7 @@ public class DataBase : GenericSingletonClass<DataBase>
         Load_StageExperienceValue();
 		Load_BossStageExperienceValueList();
 		Load_XpList();
+		Load_CheckList();
 	}
 
     private void LoadCharacterData()
@@ -202,7 +213,13 @@ public class DataBase : GenericSingletonClass<DataBase>
 		}
 	}
 
-    public Character Get_CharacterData(int _index)
+	private void Load_CheckList()
+	{
+		TextAsset jsonFile = Resources.Load<TextAsset>("CheckList");
+		checkListData = JsonUtility.FromJson<CheckListData>(jsonFile.text);
+	}
+
+	public Character Get_CharacterData(int _index)
     {
         return characterData.characters[_index];
 	}
@@ -236,27 +253,26 @@ public class DataBase : GenericSingletonClass<DataBase>
 	}
 
 
-    public void FunctionGain_Gold()
+    public void FunctionGain_EnemyGold()
     {
-        switch(currentSelectEnemyIndex)
-        {
-            case 0:
-                currentGold += 50;
-				break;
-            case 1:
-				currentGold += 100;
-				break;
-            case 2:
-				currentGold += 150;
-				break;
-            case 3:
-				currentGold += 200;
-				break;
-            case 4:
-				currentGold += 250;
-				break;
-        }
+		Debug.Log($"currentSelectEnemyIndex : {currentSelectEnemyIndex} , 획득 골드 : {enemyData.enemyStats[currentSelectEnemyIndex].gold}");
+		currentGold += enemyData.enemyStats[currentSelectEnemyIndex].gold;
     }
+	public void FunctionGain_BossGold()
+	{
+		Debug.Log($"currentSelectEnemyIndex : {currentSelectEnemyIndex} , 획득 골드 : {bossData.enemyStats[currentSelectEnemyIndex].gold}");
+		currentGold += bossData.enemyStats[currentSelectEnemyIndex].gold;
+	}
+
+	public void Funtion_AddGold(int _value)
+	{
+		currentGold += _value;
+	}
+
+	public void Funtion_RemoveGold(int _value)
+	{
+		currentGold -= _value;
+	}	
 
 	public int Get_CurrentGold()
 	{
@@ -306,6 +322,16 @@ public class DataBase : GenericSingletonClass<DataBase>
 			characterData.characters[_index].baseStats.health += 3;
 			UpdateCharacterLevel(_index);
 		}
+	}
+
+	public int Get_DispatchLevel()
+	{
+		return checkListData.DispatchLevel;
+	}
+
+	public void Funtion_AddDispatchLevel()
+	{
+		checkListData.DispatchLevel += 1;
 	}
 
 }

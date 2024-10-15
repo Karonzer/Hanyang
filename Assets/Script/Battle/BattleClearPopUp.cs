@@ -68,8 +68,16 @@ public class BattleClearPopUp : MonoBehaviour
 			}
 			value = value + BGSC.Instance.get_BattleContentController.Get_currentEnemyXp() *  BGSC.Instance.get_BattleContentController.Get_HandlecurrentCharcterIndex()[index];
 			charcterXpText[index].text = $"획득 경험치 : {value.ToString()}";
-			DataBase.Instance.FunctionGain_Gold();
 			charcterLevelUp[index].gameObject.SetActive(DataBase.Instance.Set_CharacterDataCurrentXP(index, value));
+		}
+
+		if (DataBase.Instance.Get_bClickBoss())
+		{
+			DataBase.Instance.FunctionGain_BossGold();
+		}
+		else
+		{
+			DataBase.Instance.FunctionGain_EnemyGold();
 		}
 	}	
 

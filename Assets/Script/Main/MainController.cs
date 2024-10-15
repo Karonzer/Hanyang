@@ -3,7 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainController : MonoBehaviour
+public class MGSC : GenericSingletonClass<MGSC>
+{
+	public IGet_MainController get_MainController;
+}
+
+public interface IGet_MainController
+{
+	public void Funtion_SettingGoldText();
+}
+
+public class MainController : MonoBehaviour, IGet_MainController
 {
 	[SerializeField] private Transform[] popUps;
 	[SerializeField] private int currentPopUpIndex;
@@ -12,6 +22,7 @@ public class MainController : MonoBehaviour
 
 	private void Awake()
 	{
+		MGSC.Instance.get_MainController = this;
 		Initialize_SelectBtn();
 		Initialize_PopUps();
 		Initialize_GoldText();

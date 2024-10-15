@@ -8,7 +8,9 @@
         "attack": 10,
         "defense": 10,
         "health": 100
-      }
+      },
+      "gold": 1000
+
     },
     {
       "id": 2,
@@ -18,7 +20,8 @@
         "attack": 50,
         "defense": 30,
         "health": 100
-      }
+      },
+      "gold": 1500
     },
     {
       "id": 3,
@@ -28,7 +31,8 @@
         "attack": 100,
         "defense": 80,
         "health": 100
-      }
+      },
+      "gold": 2000
     },
     {
       "id": 4,
@@ -38,7 +42,8 @@
         "attack": 100,
         "defense": 80,
         "health": 100
-      }
+      },
+      "gold": 2500
     },
     {
       "id": 5,
@@ -48,7 +53,8 @@
         "attack": 100,
         "defense": 80,
         "health": 100
-      }
+      },
+      "gold": 3000
     },
     {
       "id": 6,
@@ -58,7 +64,8 @@
         "attack": 100,
         "defense": 80,
         "health": 100
-      }
+      },
+      "gold": 3500
     }
 
   ]

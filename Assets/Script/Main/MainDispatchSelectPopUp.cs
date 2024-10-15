@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
+using static MainDispatchSelectPopUp;
 
 public class MainDispatchSelectPopUp : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 	{
 		public string id;
 		public string name;
-		public int time;
+		public float time;
 		public int gold;
 		public int probability;
 	}
@@ -19,9 +20,9 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 	[System.Serializable]
 	public class DispatchData_0
 	{
-		public List<DispatchList> dispatch_0;
+		public List<DispatchList> dispatch;
 	}
-
+	[SerializeField] private List<DispatchData_0> dispatchData;
 	[SerializeField] private DispatchData_0 dispatchData_0;
 
 	[SerializeField] private Transform mainPopUp;
@@ -29,23 +30,48 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 	[SerializeField] private Transform ResultPopUp;
 
 	[SerializeField] private Transform[] dispatchPopUps;
+	[SerializeField] private int currentSelectDispatchIndex;
 	[SerializeField] private int currentDispatchPopUpsIndex;
 	[SerializeField] private Transform dispatchGuidePopUps;
 
+	[SerializeField] private Transform levelUpPopUp;
+	[SerializeField] private Text levelUpPopUptext;
+	[SerializeField] private Transform lackGuidePopUp;
+
+
 	public SpriteAtlas spriteAtlas;
+
+	[SerializeField] private Image lodingProgressBar;
+	[SerializeField] private float duration;
+
+	[SerializeField] private Text resultPopUpText01;
+	[SerializeField] private Text resultPopUpText02;
+	[SerializeField] private Text resultPopUpText03;
+
+	[SerializeField] private Button[] dispatchBtns;
+	[SerializeField] private Button levelBtn;
+
+	[SerializeField] private string[] sispatchXpValues;
 
 	private void Awake()
 	{
+		dispatchData = new List<DispatchData_0>();
 		Initialize_LoadDispatchData_0();
 		Initialize_MainPopUp();
 		Initialize_DispatchPopUps();
+		Initialize_LodingProgressBar();
+		Initialize_ResultPopUp();
 		Initialize_UIBtn();
+		Load_DispatchXpValue();
 	}
 
 	private void OnEnable()
 	{
+		currentSelectDispatchIndex = 0;
 		Setting_MainPopUp();
 		Setting_DispatchPopUps();
+		Setting_LodingProgressBar();
+		Setting_UIBtn();
 	}
 
 	private void Initialize_LoadDispatchData_0()
@@ -55,6 +81,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		if (jsonFile != null)
 		{
 			dispatchData_0 = JsonUtility.FromJson<DispatchData_0>(jsonFile.text);
+			dispatchData.Add(dispatchData_0);
 		}
 		else
 		{
@@ -86,6 +113,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		Initialize_DispatchGuidePopUps();
 		Initialize_dispatchPopUps0TextAndBtn();
+		Initialize_LevelUpPopUpAndLackGuidePopUp();
 	}
 
 	private void Initialize_dispatchPopUps0TextAndBtn()
@@ -97,11 +125,11 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 			Button button = pos.GetChild(index).GetComponent<Button>();
 			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
 
-			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_0.dispatch_0[index].id);
-			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_0.dispatch_0[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_0.dispatch_0[index].time + "초";
-			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_0.dispatch_0[index].gold;
-			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_0.dispatch_0[index].probability + "%";
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_0.dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_0.dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_0.dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_0.dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_0.dispatch[index].probability + "%";
 		}
 	}	
 
@@ -120,6 +148,8 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		currentDispatchPopUpsIndex = 0;
 		dispatchPopUps[currentDispatchPopUpsIndex].gameObject.SetActive(true);
 		dispatchGuidePopUps.gameObject.SetActive(false);
+		levelUpPopUp.gameObject.SetActive(false);
+		lackGuidePopUp.gameObject.SetActive(false);
 	}
 
 	private void Initialize_UIBtn()
@@ -128,6 +158,54 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		Button close = pos.Find("Close").GetComponent<Button>();
 		close.onClick.AddListener(() => Clikc_CloseBtn());
+
+		dispatchBtns = new Button[pos.Find("DispatchBtn").childCount];
+		Transform count = pos.Find("DispatchBtn") ;
+		for (int i = 0; i < dispatchBtns.Length; i++)
+		{
+			int index = i;
+			dispatchBtns[i] = count.GetChild(i).GetComponent<Button>();
+			dispatchBtns[i].onClick.AddListener(() => Click_DispatchBtns(index));
+		}
+
+		levelBtn = pos.Find("LevelUp").GetComponent<Button>();
+		levelBtn.onClick.AddListener(() => Click_DispatchLevelUp());
+
+	}
+
+	private void Setting_UIBtn()
+	{
+		for(int i = 0; i < dispatchBtns.Length;i++)
+		{
+			if(i <= DataBase.Instance.Get_DispatchLevel())
+			{
+				dispatchBtns[i].interactable = true;
+			}
+			else
+			{
+				dispatchBtns[i].interactable = false;
+			}
+		}
+
+		if (DataBase.Instance.Get_DispatchLevel() >= 3)
+		{
+			levelBtn.gameObject.SetActive(false);
+		}
+	}
+
+	private void Click_DispatchBtns(int _index)
+	{
+		if(currentSelectDispatchIndex == _index)
+		{ return; }
+		dispatchPopUps[currentSelectDispatchIndex].gameObject.SetActive(false);
+		currentSelectDispatchIndex = _index;
+		dispatchPopUps[currentSelectDispatchIndex].gameObject.SetActive(true);
+	}
+
+	private void Click_DispatchLevelUp()
+	{
+		levelUpPopUp.gameObject.SetActive(true);
+		levelUpPopUptext.text = "해당 " + sispatchXpValues[DataBase.Instance.Get_DispatchLevel()] + " 골드를 지불하여\r\n파견소를 업그레이드를 하겠습니까?";
 	}
 
 	private void Initialize_DispatchGuidePopUps()
@@ -140,12 +218,60 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		no.onClick.AddListener(() => Click_DispatchGuidePopUpsOKNOBtn(false));
 	}	
 
+	private void Initialize_LevelUpPopUpAndLackGuidePopUp()
+	{
+		levelUpPopUp = mainPopUp.Find("LevelUpPopUp");
+
+		levelUpPopUptext = levelUpPopUp.GetChild(0).GetChild(0).GetComponent<Text>();
+
+		Button ok = levelUpPopUp.GetChild(0).GetChild(1).GetChild(0).GetComponent<Button>();
+		ok.onClick.AddListener(() => Click_LevelUpPopUpOkBtn());
+		Button No = levelUpPopUp.GetChild(0).GetChild(1).GetChild(1).GetComponent<Button>();
+		No.onClick.AddListener(() => Click_LevelUpPopUpNoBtn());
+
+		lackGuidePopUp = mainPopUp.Find("LackGuidePopUp");
+	}
+
+	private void Click_LevelUpPopUpOkBtn()
+	{
+		if(DataBase.Instance.Get_CurrentGold() >= int.Parse(sispatchXpValues[DataBase.Instance.Get_DispatchLevel()]))
+		{
+			DataBase.Instance.Funtion_RemoveGold(int.Parse(sispatchXpValues[DataBase.Instance.Get_DispatchLevel()]));
+			DataBase.Instance.Funtion_AddDispatchLevel();
+			if (DataBase.Instance.Get_DispatchLevel() >= 3)
+			{
+				levelBtn.gameObject.SetActive(false);
+			}
+			levelUpPopUp.gameObject.SetActive(false);
+			Setting_UIBtn();
+			MGSC.Instance.get_MainController.Funtion_SettingGoldText();
+		}
+        else
+        {
+			levelUpPopUp.gameObject.SetActive(false);
+			lackGuidePopUp.gameObject.SetActive(true);
+			StartCoroutine("Daley_lackGuidePopUpClose");
+		}
+	}
+
+	IEnumerator Daley_lackGuidePopUpClose()
+	{
+		yield return new WaitForSeconds(3);
+		lackGuidePopUp.gameObject.SetActive(false);
+	}
+
+	private void Click_LevelUpPopUpNoBtn()
+	{
+		levelUpPopUp.gameObject.SetActive(false);
+	}
+
 	private void Click_DispatchGuidePopUpsOKNOBtn(bool _bool)
 	{
 		if(_bool)
 		{
 			mainPopUp.gameObject.SetActive(false);
 			loding.gameObject.SetActive(true);
+			StartFilling(dispatchData[currentSelectDispatchIndex].dispatch[currentDispatchPopUpsIndex].time);
 		}
 		else
 		{
@@ -153,8 +279,78 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		}
 	}
 
+	public void StartFilling(float time)
+	{
+		duration = time;
+		StartCoroutine(LodingImageFillOverTime());
+	}
+
+	private IEnumerator LodingImageFillOverTime()
+	{
+		float elapsedTime = 0f;
+
+		lodingProgressBar.fillAmount = 0f;
+
+		while (elapsedTime < duration)
+		{
+			elapsedTime += Time.deltaTime;
+			lodingProgressBar.fillAmount = Mathf.Clamp01(elapsedTime / duration);
+			yield return null;
+		}
+
+		lodingProgressBar.fillAmount = 1f;
+		loding.gameObject.SetActive(false);
+		ResultPopUp.gameObject.SetActive(true);
+
+		int randomValue = Random.Range(0, 100);
+		if(randomValue > dispatchData[currentSelectDispatchIndex].dispatch[currentDispatchPopUpsIndex].probability)
+		{
+			Debug.Log("파견 성공");
+			resultPopUpText01.text = "파견 성공";
+			resultPopUpText02.text = "용병단이 해당 파견은 \r\n성공하였습니다";
+			resultPopUpText03.text = "획득 골드 : " + dispatchData[currentSelectDispatchIndex].dispatch[currentDispatchPopUpsIndex].gold.ToString();
+			DataBase.Instance.Funtion_AddGold(dispatchData[currentSelectDispatchIndex].dispatch[currentDispatchPopUpsIndex].gold);
+			MGSC.Instance.get_MainController.Funtion_SettingGoldText();
+		}
+		else
+		{
+			Debug.Log("파견 실패");
+			resultPopUpText01.text = "파견 성공";
+			resultPopUpText02.text = "용병단이 해당 파견은 \r\n실패하였습니다";
+			resultPopUpText03.text = "획득 골드 : " + 0;
+		}
+	}
+
 	private void Clikc_CloseBtn()
 	{
 		transform.gameObject.SetActive(false);
 	}
+
+	private void Initialize_LodingProgressBar()
+	{
+		lodingProgressBar = loding.GetChild(0).GetChild(0).GetComponent<Image>();
+	}
+
+	private void Setting_LodingProgressBar()
+	{
+		lodingProgressBar.fillAmount = 0;
+	}
+
+	private void Initialize_ResultPopUp()
+	{
+		Button ok = ResultPopUp.GetChild(0).Find("Ok").GetComponent<Button>();
+		ok.onClick.AddListener(Clikc_CloseBtn);
+
+		resultPopUpText01 = ResultPopUp.GetChild(0).GetChild(0).GetComponent<Text>();
+		resultPopUpText02 = ResultPopUp.GetChild(0).GetChild(1).GetComponent<Text>();
+		resultPopUpText03 = ResultPopUp.GetChild(0).GetChild(2).GetComponent<Text>();
+	}
+
+	private void Load_DispatchXpValue()
+	{
+		TextAsset file = Resources.Load<TextAsset>("DispatchXpValue");
+		sispatchXpValues = file.text.Split('\n');
+	}
+
+
 }
