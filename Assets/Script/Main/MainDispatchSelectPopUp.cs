@@ -18,12 +18,15 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 	}
 
 	[System.Serializable]
-	public class DispatchData_0
+	public class DispatchData
 	{
 		public List<DispatchList> dispatch;
 	}
-	[SerializeField] private List<DispatchData_0> dispatchData;
-	[SerializeField] private DispatchData_0 dispatchData_0;
+	[SerializeField] private List<DispatchData> dispatchData;
+	[SerializeField] private DispatchData dispatchData_0;
+	[SerializeField] private DispatchData dispatchData_1;
+	[SerializeField] private DispatchData dispatchData_2;
+	[SerializeField] private DispatchData dispatchData_3;
 
 	[SerializeField] private Transform mainPopUp;
 	[SerializeField] private Transform loding;
@@ -55,8 +58,11 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	private void Awake()
 	{
-		dispatchData = new List<DispatchData_0>();
+		dispatchData = new List<DispatchData>();
 		Initialize_LoadDispatchData_0();
+		Initialize_LoadDispatchData_1();
+		Initialize_LoadDispatchData_2();
+		Initialize_LoadDispatchData_3();
 		Initialize_MainPopUp();
 		Initialize_DispatchPopUps();
 		Initialize_LodingProgressBar();
@@ -80,8 +86,53 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		if (jsonFile != null)
 		{
-			dispatchData_0 = JsonUtility.FromJson<DispatchData_0>(jsonFile.text);
+			dispatchData_0 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
 			dispatchData.Add(dispatchData_0);
+		}
+		else
+		{
+			Debug.LogError("Failed to load characters_data.json from Resources folder.");
+		}
+	}
+
+	private void Initialize_LoadDispatchData_1()
+	{
+		TextAsset jsonFile = Resources.Load<TextAsset>("Dispatch_1");
+
+		if (jsonFile != null)
+		{
+			dispatchData_1 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
+			dispatchData.Add(dispatchData_1);
+		}
+		else
+		{
+			Debug.LogError("Failed to load characters_data.json from Resources folder.");
+		}
+	}
+
+	private void Initialize_LoadDispatchData_2()
+	{
+		TextAsset jsonFile = Resources.Load<TextAsset>("Dispatch_2");
+
+		if (jsonFile != null)
+		{
+			dispatchData_2 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
+			dispatchData.Add(dispatchData_2);
+		}
+		else
+		{
+			Debug.LogError("Failed to load characters_data.json from Resources folder.");
+		}
+	}
+
+	private void Initialize_LoadDispatchData_3()
+	{
+		TextAsset jsonFile = Resources.Load<TextAsset>("Dispatch_3");
+
+		if (jsonFile != null)
+		{
+			dispatchData_3 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
+			dispatchData.Add(dispatchData_3);
 		}
 		else
 		{
@@ -113,6 +164,9 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		Initialize_DispatchGuidePopUps();
 		Initialize_dispatchPopUps0TextAndBtn();
+		Initialize_dispatchPopUps1TextAndBtn();
+		Initialize_dispatchPopUps2TextAndBtn();
+		Initialize_dispatchPopUps3TextAndBtn();
 		Initialize_LevelUpPopUpAndLackGuidePopUp();
 	}
 
@@ -131,7 +185,58 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_0.dispatch[index].gold;
 			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_0.dispatch[index].probability + "%";
 		}
-	}	
+	}
+
+	private void Initialize_dispatchPopUps1TextAndBtn()
+	{
+		Transform pos = dispatchPopUps[1].GetChild(0); ;
+		for (int i = 0; i < pos.childCount; i++)
+		{
+			int index = i;
+			Button button = pos.GetChild(index).GetComponent<Button>();
+			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
+
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_1.dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_1.dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_1.dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_1.dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_1.dispatch[index].probability + "%";
+		}
+	}
+
+	private void Initialize_dispatchPopUps2TextAndBtn()
+	{
+		Transform pos = dispatchPopUps[2].GetChild(0);
+		for (int i = 0; i < pos.childCount; i++)
+		{
+			int index = i;
+			Button button = pos.GetChild(index).GetComponent<Button>();
+			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
+
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_2.dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_2.dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_2.dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_2.dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_2.dispatch[index].probability + "%";
+		}
+	}
+
+	private void Initialize_dispatchPopUps3TextAndBtn()
+	{
+		Transform pos = dispatchPopUps[3].GetChild(0);
+		for (int i = 0; i < pos.childCount; i++)
+		{
+			int index = i;
+			Button button = pos.GetChild(index).GetComponent<Button>();
+			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
+
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_3.dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_3.dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_3.dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_3.dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_3.dispatch[index].probability + "%";
+		}
+	}
 
 	private void Click_dispatchPopUps0Btn(int _index)
 	{
@@ -315,7 +420,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		else
 		{
 			Debug.Log("파견 실패");
-			resultPopUpText01.text = "파견 성공";
+			resultPopUpText01.text = "파견 실패";
 			resultPopUpText02.text = "용병단이 해당 파견은 \r\n실패하였습니다";
 			resultPopUpText03.text = "획득 골드 : " + 0;
 		}

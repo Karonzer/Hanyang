@@ -1,0 +1,19 @@
+{
+  "dispatch": [
+    {
+      "id": "D_2_0",
+      "name": "Test",
+      "time": 15,
+      "gold": 500,
+      "probability": 21
+
+    },
+    {
+      "id": "Test",
+      "name": "Test",
+      "time": 16,
+      "gold": 500,
+      "probability": 22
+    }
+  ]
+}
