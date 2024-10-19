@@ -1,0 +1,29 @@
+{
+  "training": [
+    {
+      "id": "T_1",
+      "name": "공격력",
+      "stats": 1,
+      "time": 2,
+      "gold": 100,
+      "probability": 40
+
+    },
+    {
+      "id": "T_2",
+      "name": "방어력",
+      "stats": 1,
+      "time": 3,
+      "gold": 100,
+      "probability": 40
+    },
+    {
+      "id": "T_3",
+      "name": "체력",
+      "stats": 1,
+      "time": 4,
+      "gold": 100,
+      "probability": 40
+    }
+  ]
+}

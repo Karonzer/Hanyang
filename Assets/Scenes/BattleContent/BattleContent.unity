@@ -4568,7 +4568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.24619699, g: 1, b: 0, a: 1}
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
 --- !u!114 &672513113
@@ -5446,6 +5446,7 @@ MonoBehaviour:
       attack: 0
       defense: 0
       health: 0
+    gold: 0
   currentIndex: 0
   maxHealth: 0
   currentHealth: 0
@@ -9571,7 +9572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.24619699, g: 1, b: 0, a: 1}
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
 --- !u!1 &1354060100
@@ -11403,6 +11404,7 @@ MonoBehaviour:
       attack: 0
       defense: 0
       health: 0
+    gold: 0
   currentIndex: 0
   maxHealth: 0
   currentHealth: 0
@@ -11480,6 +11482,7 @@ MonoBehaviour:
       attack: 0
       defense: 0
       health: 0
+    gold: 0
   currentIndex: 0
   maxHealth: 0
   currentHealth: 0
@@ -11960,6 +11963,7 @@ MonoBehaviour:
       attack: 0
       defense: 0
       health: 0
+    gold: 0
   currentIndex: 0
   maxHealth: 0
   currentHealth: 0
@@ -15160,7 +15164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.24619699, g: 1, b: 0, a: 1}
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
 --- !u!114 &2136772892

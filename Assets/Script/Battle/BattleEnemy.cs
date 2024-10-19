@@ -140,7 +140,7 @@ public class BattleEnemy : MonoBehaviour, IGet_BattleEnemy
 
 	public void Recover_CurrentHealth()
 	{
-		float value = maxHealth * 0.1f;
+		float value = currentHealth + maxHealth * 0.1f;
 		currentHealth = (int)value;
 		if (currentHealth >= maxHealth)
 		{

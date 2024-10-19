@@ -155,7 +155,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 
 	public void Recover_CurrentHealth()
 	{
-		float value = maxHealth * 0.1f;
+		float value = currentHealth + maxHealth * 0.1f;
 		currentHealth = (int)value;
 		if(currentHealth>= maxHealth)
 		{
@@ -168,12 +168,12 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 
 	public int Get_AttackDamages()
 	{
-		return myCharacter.baseStats.attack;
+		return myCharacter.baseStats.attack + myCharacter.trainingStats.attack;
 	}
 
 	public void Calculation_AttackDamages(int _getDamages)
 	{
-		int damages = _getDamages - myCharacter.baseStats.defense;
+		int damages = _getDamages - (myCharacter.baseStats.defense + myCharacter.trainingStats.defense);
 		if (damages > 0)
 		{
 			if (bDefenseState == true)

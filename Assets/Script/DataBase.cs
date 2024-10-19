@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 [System.Serializable]
@@ -329,9 +328,19 @@ public class DataBase : GenericSingletonClass<DataBase>
 		return checkListData.DispatchLevel;
 	}
 
+	public int Get_TrainingLevel()
+	{
+		return checkListData.TrainingLevel;
+	}
+
 	public void Funtion_AddDispatchLevel()
 	{
 		checkListData.DispatchLevel += 1;
+	}
+
+	public void Funtion_AddTrainingLevel()
+	{
+		checkListData.TrainingLevel += 1;
 	}
 
 }

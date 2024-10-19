@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
-using static MainDispatchSelectPopUp;
 
 public class MainDispatchSelectPopUp : MonoBehaviour
 {
@@ -23,10 +22,6 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		public List<DispatchList> dispatch;
 	}
 	[SerializeField] private List<DispatchData> dispatchData;
-	[SerializeField] private DispatchData dispatchData_0;
-	[SerializeField] private DispatchData dispatchData_1;
-	[SerializeField] private DispatchData dispatchData_2;
-	[SerializeField] private DispatchData dispatchData_3;
 
 	[SerializeField] private Transform mainPopUp;
 	[SerializeField] private Transform loding;
@@ -40,7 +35,6 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 	[SerializeField] private Transform levelUpPopUp;
 	[SerializeField] private Text levelUpPopUptext;
 	[SerializeField] private Transform lackGuidePopUp;
-
 
 	public SpriteAtlas spriteAtlas;
 
@@ -86,7 +80,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		if (jsonFile != null)
 		{
-			dispatchData_0 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
+			DispatchData dispatchData_0 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
 			dispatchData.Add(dispatchData_0);
 		}
 		else
@@ -101,7 +95,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		if (jsonFile != null)
 		{
-			dispatchData_1 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
+			DispatchData dispatchData_1 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
 			dispatchData.Add(dispatchData_1);
 		}
 		else
@@ -116,7 +110,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		if (jsonFile != null)
 		{
-			dispatchData_2 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
+			DispatchData dispatchData_2 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
 			dispatchData.Add(dispatchData_2);
 		}
 		else
@@ -131,7 +125,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 		if (jsonFile != null)
 		{
-			dispatchData_3 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
+			DispatchData dispatchData_3 = JsonUtility.FromJson<DispatchData>(jsonFile.text);
 			dispatchData.Add(dispatchData_3);
 		}
 		else
@@ -179,11 +173,11 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 			Button button = pos.GetChild(index).GetComponent<Button>();
 			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
 
-			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_0.dispatch[index].id);
-			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_0.dispatch[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_0.dispatch[index].time + "초";
-			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_0.dispatch[index].gold;
-			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_0.dispatch[index].probability + "%";
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData[0].dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData[0].dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData[0].dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData[0].dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData[0].dispatch[index].probability + "%";
 		}
 	}
 
@@ -196,11 +190,11 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 			Button button = pos.GetChild(index).GetComponent<Button>();
 			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
 
-			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_1.dispatch[index].id);
-			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_1.dispatch[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_1.dispatch[index].time + "초";
-			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_1.dispatch[index].gold;
-			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_1.dispatch[index].probability + "%";
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData[1].dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData[1].dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData[1].dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData[1].dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData[1].dispatch[index].probability + "%";
 		}
 	}
 
@@ -213,11 +207,11 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 			Button button = pos.GetChild(index).GetComponent<Button>();
 			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
 
-			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_2.dispatch[index].id);
-			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_2.dispatch[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_2.dispatch[index].time + "초";
-			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_2.dispatch[index].gold;
-			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_2.dispatch[index].probability + "%";
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData[2].dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData[2].dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData[2].dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData[2].dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData[2].dispatch[index].probability + "%";
 		}
 	}
 
@@ -230,11 +224,11 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 			Button button = pos.GetChild(index).GetComponent<Button>();
 			button.onClick.AddListener(() => Click_dispatchPopUps0Btn(index));
 
-			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData_3.dispatch[index].id);
-			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData_3.dispatch[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData_3.dispatch[index].time + "초";
-			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData_3.dispatch[index].gold;
-			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData_3.dispatch[index].probability + "%";
+			pos.GetChild(index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(dispatchData[3].dispatch[index].id);
+			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = dispatchData[3].dispatch[index].name;
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "소요 시간 : " + dispatchData[3].dispatch[index].time + "초";
+			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "획득 골드 : " + dispatchData[3].dispatch[index].gold;
+			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "실패 확률 : " + dispatchData[3].dispatch[index].probability + "%";
 		}
 	}
 
@@ -361,7 +355,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	IEnumerator Daley_lackGuidePopUpClose()
 	{
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(2);
 		lackGuidePopUp.gameObject.SetActive(false);
 	}
 
@@ -375,6 +369,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		if(_bool)
 		{
 			mainPopUp.gameObject.SetActive(false);
+			dispatchGuidePopUps.gameObject.SetActive(false);
 			loding.gameObject.SetActive(true);
 			StartFilling(dispatchData[currentSelectDispatchIndex].dispatch[currentDispatchPopUpsIndex].time);
 		}
@@ -444,11 +439,18 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 	private void Initialize_ResultPopUp()
 	{
 		Button ok = ResultPopUp.GetChild(0).Find("Ok").GetComponent<Button>();
-		ok.onClick.AddListener(Clikc_CloseBtn);
+		ok.onClick.AddListener(Click_ResultPopUpClose);
 
 		resultPopUpText01 = ResultPopUp.GetChild(0).GetChild(0).GetComponent<Text>();
 		resultPopUpText02 = ResultPopUp.GetChild(0).GetChild(1).GetComponent<Text>();
 		resultPopUpText03 = ResultPopUp.GetChild(0).GetChild(2).GetComponent<Text>();
+	}
+
+
+	private void Click_ResultPopUpClose()
+	{
+		ResultPopUp.gameObject.SetActive(false);
+		mainPopUp.gameObject.SetActive(true);
 	}
 
 	private void Load_DispatchXpValue()

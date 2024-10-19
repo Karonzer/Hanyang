@@ -465,7 +465,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		{
 			int randomValue = Random.Range(0, 100);  // 0부터 100 사이의 랜덤 값 생성
 
-			if (randomValue < 45)  // 75% 확률로 공격
+			if (randomValue < 45)  // 45% 확률로 공격
 			{
 				Debug.Log("보스 공격");
 				yield return StartCoroutine("Start_BossAttack");
@@ -475,7 +475,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 				Debug.Log("보스 전체 공격");
 				yield return StartCoroutine("Start_BossAttackAni");
 			}
-			else if (randomValue < 95)  // 15% 확률로 방어
+			else if (randomValue < 95)  // 5% 확률로 방어
 			{
 				Debug.Log("보스 방어");
 				get_BattleCharctreController.get_BattleBoss().Set_bDefenseState(true);
