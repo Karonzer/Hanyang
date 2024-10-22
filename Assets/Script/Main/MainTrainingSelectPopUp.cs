@@ -45,9 +45,6 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 	[SerializeField] private Text levelUpPopUptext;
 	[SerializeField] private Transform lackGuidePopUp;
 
-
-	public SpriteAtlas spriteAtlas;
-
 	[SerializeField] private Image lodingProgressBar;
 	[SerializeField] private Image lodingBg;
 	[SerializeField] private float duration;
@@ -252,6 +249,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 		{
 			currentTraingingSelcetIndex = _index;
 			selectPopUp.gameObject.SetActive(true);
+			Setting_SelectPopUp();
 		}
 		else
 		{
@@ -352,7 +350,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 		for (int i = 0; i < pos.childCount; i++)
 		{
 			int _index = i;
-			pos.GetChild(_index).GetChild(0).GetComponent<Image>().sprite = spriteAtlas.GetSprite(DataBase.Instance.Get_CharacterData(_index).name);
+			pos.GetChild(_index).GetChild(0).GetComponent<Image>().sprite = MGSC.Instance.get_MainController.Get_SpriteAtlas().GetSprite(DataBase.Instance.Get_CharacterData(_index).name);
 			pos.GetChild(_index).GetChild(1).GetComponent<Text>().text = "레벨 : "+ DataBase.Instance.Get_CharacterData(_index).level;
 			pos.GetChild(_index).GetChild(2).GetComponent<Text>().text = "공격력 : " + DataBase.Instance.Get_CharacterData(_index).baseStats.attack +  " + " + DataBase.Instance.Get_CharacterData(_index).trainingStats.attack;
 			pos.GetChild(_index).GetChild(3).GetComponent<Text>().text = "방어력 : " + DataBase.Instance.Get_CharacterData(_index).baseStats.defense + " + " + DataBase.Instance.Get_CharacterData(_index).trainingStats.defense;
@@ -448,7 +446,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 				trainingGuidePopUps.gameObject.SetActive(false);
 				selectPopUp.gameObject.SetActive(false);
 				loding.gameObject.SetActive(true);
-				lodingBg.sprite = spriteAtlas.GetSprite(DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).name);
+				lodingBg.sprite =  MGSC.Instance.get_MainController.Get_SpriteAtlas().GetSprite(DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).name);
 				StartFilling(trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].time);
 			}
 			else
@@ -492,7 +490,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 		lodingProgressBar.fillAmount = 1f;
 		loding.gameObject.SetActive(false);
 		ResultPopUp.gameObject.SetActive(true);
-		resultPopUpPlayerBG.sprite = spriteAtlas.GetSprite(DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).name);
+		resultPopUpPlayerBG.sprite = MGSC.Instance.get_MainController.Get_SpriteAtlas().GetSprite(DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).name);
 		int randomValue = Random.Range(0, 100);
 		if (randomValue > trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].probability)
 		{
@@ -504,17 +502,17 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 				case 0:
 					text = DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.attack + trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].stats;
 					resultPopUpText02.text = "공격력 : " + DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.attack + " -> " + text;
-					DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.attack += trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].stats;
+					DataBase.Instance.Add_CharacterDataAttack(currentTraingingPlayerSelcetIndex, text);
 					break;
 				case 1:
 					 text = DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.defense + trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].stats;
 					resultPopUpText02.text = "방어력 : " + DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.defense + " -> " + text;
-					DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.defense += trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].stats;
+					DataBase.Instance.Add_CharacterDataDfense(currentTraingingPlayerSelcetIndex, text);
 					break;
 				case 2:
 					text = DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.health + trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].stats;
 					resultPopUpText02.text = "체력 : " + DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.health + " -> " + text;
-					DataBase.Instance.Get_CharacterData(currentTraingingPlayerSelcetIndex).trainingStats.health += trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].stats;
+					DataBase.Instance.Add_CharacterDataHealth(currentTraingingPlayerSelcetIndex, text);
 					break;
 			}
 		}

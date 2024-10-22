@@ -1,0 +1,52 @@
+{
+    "characters": [
+      {
+        "id": 1,
+        "name": "Player03",
+        "level": 1,
+        "currentXP": 0,
+        "baseStats": {
+          "attack": 50,
+          "defense": 30,
+          "health": 200
+        },
+        "trainingStats": {
+          "attack": 0,
+          "defense": 0,
+          "health": 0
+        }
+      },
+      {
+        "id": 2,
+        "name": "Player01",
+        "level": 1,
+        "currentXP": 0,
+        "baseStats": {
+          "attack": 40,
+          "defense": 25,
+          "health": 180
+        },
+        "trainingStats": {
+          "attack": 0,
+          "defense": 0,
+          "health": 0
+        }
+      },
+      {
+        "id": 3,
+        "name": "Player04",
+        "level": 1,
+        "currentXP": 0,
+        "baseStats": {
+          "attack": 45,
+          "defense": 28,
+          "health": 190
+        },
+        "trainingStats": {
+          "attack": 0,
+          "defense": 0,
+          "health": 0
+        }
+      }
+    ]
+}

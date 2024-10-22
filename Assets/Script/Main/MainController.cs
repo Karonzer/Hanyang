@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class MGSC : GenericSingletonClass<MGSC>
@@ -11,6 +12,7 @@ public class MGSC : GenericSingletonClass<MGSC>
 public interface IGet_MainController
 {
 	public void Funtion_SettingGoldText();
+	public SpriteAtlas Get_SpriteAtlas();
 }
 
 public class MainController : MonoBehaviour, IGet_MainController
@@ -19,6 +21,8 @@ public class MainController : MonoBehaviour, IGet_MainController
 	[SerializeField] private int currentPopUpIndex;
 
 	[SerializeField] private Text goldText;
+
+	public SpriteAtlas spriteAtlas;
 
 	private void Awake()
 	{
@@ -91,4 +95,8 @@ public class MainController : MonoBehaviour, IGet_MainController
 		goldText.text = "현재 소지금 :  " + DataBase.Instance.Get_CurrentGold().ToString();
 	}
 
+	public SpriteAtlas Get_SpriteAtlas()
+	{
+		return spriteAtlas;
+	}
 }

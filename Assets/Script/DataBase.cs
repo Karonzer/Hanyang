@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [System.Serializable]
@@ -98,27 +99,52 @@ public class DataBase : GenericSingletonClass<DataBase>
 
     private void LoadCharacterData()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("characters_data");
+		string path = Path.Combine(Application.persistentDataPath, "characters_data.json");
 
-        if (jsonFile != null)
-        {
-            characterData = JsonUtility.FromJson<CharacterData>(jsonFile.text);
+		// Check if the file exists in persistentDataPath
+		if (File.Exists(path))
+		{
+			// Load from persistentDataPath if it exists
+			string json = File.ReadAllText(path);
+			characterData = JsonUtility.FromJson<CharacterData>(json);
+			Debug.Log("Character data loaded from persistentDataPath.");
+		}
+		else
+		{
+			// Otherwise, load the default data from Resources
+			TextAsset jsonFile = Resources.Load<TextAsset>("characters_data");
 
-            foreach (var character in characterData.characters)
-            {
-                Debug.Log($"Character ID: {character.id}, Name: {character.name}, Level: {character.level}");
-            }
-        }
-        else
-        {
-            Debug.LogError("Failed to load characters_data.json from Resources folder.");
-        }
+			if (jsonFile != null)
+			{
+				characterData = JsonUtility.FromJson<CharacterData>(jsonFile.text);
+				Debug.Log("Character data loaded from Resources.");
+			}
+			else
+			{
+				Debug.LogError("Failed to load characters_data.json from Resources folder.");
+				return;
+			}
+		}
 
-
-	
+		// Display the loaded character data
+		foreach (var character in characterData.characters)
+		{
+			Debug.Log($"Character ID: {character.id}, Name: {character.name}, Level: {character.level}");
+		}
 	}
 
-    private void Load_EnemyData()
+	public void SaveCharacterData()
+	{
+		string json = JsonUtility.ToJson(characterData, true);
+
+		// You cannot write to the Resources folder directly in a build, so save to persistentDataPath
+		string path = Path.Combine(Application.persistentDataPath, "characters_data.json");
+
+		File.WriteAllText(path, json);
+		Debug.Log($"Character data saved to {path}");
+	}
+
+	private void Load_EnemyData()
     {
         Debug.Log("Load_EnemyData");
 		TextAsset enemyjsonFile = Resources.Load<TextAsset>("Enemy_data");
@@ -160,12 +186,51 @@ public class DataBase : GenericSingletonClass<DataBase>
 
 	private void Load_CurrnetGold()
     {
-		TextAsset jsonFile = Resources.Load<TextAsset>("Gold");
-        GoldData goldData =  JsonUtility.FromJson<GoldData>(jsonFile.text);
-        currentGold = goldData.currentGold;
-	}    
+		string path = Path.Combine(Application.persistentDataPath, "Gold.json");
 
-    private void Load_StageExperienceValue()
+		// Check if the file exists in persistentDataPath
+		if (File.Exists(path))
+		{
+			// Load the saved gold data from persistentDataPath
+			string json = File.ReadAllText(path);
+			GoldData goldData = JsonUtility.FromJson<GoldData>(json);
+			currentGold = goldData.currentGold;
+			Debug.Log("Gold data loaded from persistentDataPath.");
+		}
+		else
+		{
+			// Otherwise, load the default gold data from Resources
+			TextAsset jsonFile = Resources.Load<TextAsset>("Gold");
+
+			if (jsonFile != null)
+			{
+				GoldData goldData = JsonUtility.FromJson<GoldData>(jsonFile.text);
+				currentGold = goldData.currentGold;
+				Debug.Log("Gold data loaded from Resources.");
+			}
+			else
+			{
+				Debug.LogError("Failed to load Gold.json from Resources folder.");
+			}
+		}
+	}
+
+	public void SaveCurrentGold()
+	{
+		// Create a GoldData object to save the current gold
+		GoldData goldData = new GoldData { currentGold = currentGold };
+
+		// Serialize the gold data to JSON format
+		string json = JsonUtility.ToJson(goldData, true);
+
+		// Save the JSON data to persistentDataPath
+		string path = Path.Combine(Application.persistentDataPath, "Gold.json");
+
+		File.WriteAllText(path, json);
+		Debug.Log($"Gold data saved to {path}");
+	}
+
+	private void Load_StageExperienceValue()
     {
         stageExperienceValueList = new Dictionary<int, int>();
 		TextAsset file = Resources.Load<TextAsset>("StageExperienceValue");
@@ -214,8 +279,43 @@ public class DataBase : GenericSingletonClass<DataBase>
 
 	private void Load_CheckList()
 	{
-		TextAsset jsonFile = Resources.Load<TextAsset>("CheckList");
-		checkListData = JsonUtility.FromJson<CheckListData>(jsonFile.text);
+		string path = Path.Combine(Application.persistentDataPath, "CheckList.json");
+
+		// Check if the file exists in persistentDataPath
+		if (File.Exists(path))
+		{
+			// Load the saved checklist data from persistentDataPath
+			string json = File.ReadAllText(path);
+			checkListData = JsonUtility.FromJson<CheckListData>(json);
+			Debug.Log("Checklist data loaded from persistentDataPath.");
+		}
+		else
+		{
+			// Otherwise, load the default checklist data from Resources
+			TextAsset jsonFile = Resources.Load<TextAsset>("CheckList");
+
+			if (jsonFile != null)
+			{
+				checkListData = JsonUtility.FromJson<CheckListData>(jsonFile.text);
+				Debug.Log("Checklist data loaded from Resources.");
+			}
+			else
+			{
+				Debug.LogError("Failed to load CheckList.json from Resources folder.");
+			}
+		}
+	}
+
+	public void SaveCheckList()
+	{
+		// Serialize the CheckListData to JSON format
+		string json = JsonUtility.ToJson(checkListData, true);
+
+		// Save the JSON data to persistentDataPath
+		string path = Path.Combine(Application.persistentDataPath, "CheckList.json");
+
+		File.WriteAllText(path, json);
+		Debug.Log($"Checklist data saved to {path}");
 	}
 
 	public Character Get_CharacterData(int _index)
@@ -223,7 +323,26 @@ public class DataBase : GenericSingletonClass<DataBase>
         return characterData.characters[_index];
 	}
 
-    public EnemyStats GetEnemyStats(int _index) 
+	public void Add_CharacterDataAttack(int _index,int _value)
+	{
+		characterData.characters[_index].trainingStats.attack = _value;
+		SaveCharacterData();
+	}
+
+	public void Add_CharacterDataDfense(int _index, int _value)
+	{
+		characterData.characters[_index].trainingStats.defense = _value;
+		SaveCharacterData();
+	}
+
+	public void Add_CharacterDataHealth(int _index, int _value)
+	{
+		characterData.characters[_index].trainingStats.health = _value;
+		SaveCharacterData();
+	}
+
+
+	public EnemyStats GetEnemyStats(int _index) 
     {
         return enemyData.enemyStats[_index];
     }
@@ -256,21 +375,26 @@ public class DataBase : GenericSingletonClass<DataBase>
     {
 		Debug.Log($"currentSelectEnemyIndex : {currentSelectEnemyIndex} , 획득 골드 : {enemyData.enemyStats[currentSelectEnemyIndex].gold}");
 		currentGold += enemyData.enemyStats[currentSelectEnemyIndex].gold;
-    }
+		SaveCurrentGold();
+
+	}
 	public void FunctionGain_BossGold()
 	{
 		Debug.Log($"currentSelectEnemyIndex : {currentSelectEnemyIndex} , 획득 골드 : {bossData.enemyStats[currentSelectEnemyIndex].gold}");
 		currentGold += bossData.enemyStats[currentSelectEnemyIndex].gold;
+		SaveCurrentGold();
 	}
 
 	public void Funtion_AddGold(int _value)
 	{
 		currentGold += _value;
+		SaveCurrentGold();
 	}
 
 	public void Funtion_RemoveGold(int _value)
 	{
 		currentGold -= _value;
+		SaveCurrentGold();
 	}	
 
 	public int Get_CurrentGold()
@@ -303,12 +427,13 @@ public class DataBase : GenericSingletonClass<DataBase>
         {
             check = false;
         }
+		SaveCharacterData();
 		return check;
 	}
 
 	public void UpdateCharacterLevel(int _index)
 	{
-        if(characterData.characters[_index].level >= 101)
+        if(characterData.characters[_index].level >= 100)
         {
             return;
         }
@@ -336,11 +461,13 @@ public class DataBase : GenericSingletonClass<DataBase>
 	public void Funtion_AddDispatchLevel()
 	{
 		checkListData.DispatchLevel += 1;
+		SaveCheckList();
 	}
 
 	public void Funtion_AddTrainingLevel()
 	{
 		checkListData.TrainingLevel += 1;
+		SaveCheckList();
 	}
 
 }
