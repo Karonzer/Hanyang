@@ -30,6 +30,9 @@ public class MainController : MonoBehaviour, IGet_MainController
 		Initialize_SelectBtn();
 		Initialize_PopUps();
 		Initialize_GoldText();
+
+		Button button = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Button>();
+		button.onClick.AddListener(DataBase.Instance.Initialization);
 	}
 
 	private void OnEnable()

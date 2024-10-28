@@ -470,4 +470,80 @@ public class DataBase : GenericSingletonClass<DataBase>
 		SaveCheckList();
 	}
 
+	public void Initialization()
+	{
+		Debug.Log("Initialization");
+		Initialization_LoadCharacterData();
+		Initialization_LoadCurrnetGold();
+		Initialization_LoadCheckList();
+		Loding.LoadScene("ReTitle");
+		Resources.UnloadUnusedAssets();
+		System.GC.Collect();
+	}
+
+	private void Initialization_LoadCharacterData()
+	{
+		TextAsset jsonFile = Resources.Load<TextAsset>("characters_data");
+
+		if (jsonFile != null)
+		{
+			characterData = JsonUtility.FromJson<CharacterData>(jsonFile.text);
+
+			string savejson = JsonUtility.ToJson(characterData, true);
+			string savepath = Path.Combine(Application.persistentDataPath, "characters_data.json");
+
+			File.WriteAllText(savepath, savejson);
+			Debug.Log($"Character data saved to {savepath}");
+		}
+		else
+		{
+			Debug.LogError("Failed to load characters_data.json from Resources folder.");
+			return;
+		}
+	}
+
+	private void Initialization_LoadCurrnetGold()
+	{
+		TextAsset jsonFile = Resources.Load<TextAsset>("Gold");
+
+		if (jsonFile != null)
+		{
+			GoldData goldData = JsonUtility.FromJson<GoldData>(jsonFile.text);
+			currentGold = goldData.currentGold;
+			Debug.Log("Gold data loaded from Resources.");
+
+			string json = JsonUtility.ToJson(goldData, true);
+			string path = Path.Combine(Application.persistentDataPath, "Gold.json");
+			File.WriteAllText(path, json);
+			Debug.Log($"Gold data saved to {path}");
+		}
+		else
+		{
+			Debug.LogError("Failed to load Gold.json from Resources folder.");
+		}
+	}
+
+
+	private void Initialization_LoadCheckList()
+	{
+		TextAsset jsonFile = Resources.Load<TextAsset>("CheckList");
+
+		if (jsonFile != null)
+		{
+			checkListData = JsonUtility.FromJson<CheckListData>(jsonFile.text);
+			Debug.Log("Checklist data loaded from Resources.");
+
+			string json = JsonUtility.ToJson(checkListData, true);
+			string path = Path.Combine(Application.persistentDataPath, "CheckList.json");
+			File.WriteAllText(path, json);
+			Debug.Log($"Checklist data saved to {path}");
+		}
+		else
+		{
+			Debug.LogError("Failed to load CheckList.json from Resources folder.");
+		}
+	}
+
+
+
 }

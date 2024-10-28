@@ -15,6 +15,7 @@ public class MainBattleSelectPopUp : MonoBehaviour
 		Initialize_PopUps();
 		Initialize_EnemyBattleSelectPopUp();
 		Initialize_BossBattleSelectPopUp();
+		Initialize_FinalBossBattleSelectPopUp();
 		Initialize_Btns();
 	}
 
@@ -114,6 +115,15 @@ public class MainBattleSelectPopUp : MonoBehaviour
 		}
 	}
 
+	private void Initialize_FinalBossBattleSelectPopUp()
+	{
+		Transform finalBoss = popUps[2].GetChild(0);
+		int index = 6;
+		Button button = finalBoss.GetComponent<Button>();
+		button.onClick.AddListener(() => Loding_LoadFinalBossBattleContentScene(index));
+
+	}
+
 	public void Loding_LoadBattleContentScene(int _index)
 	{
 		DataBase.Instance.Set_CurrentSelectEnemyIndex(_index);
@@ -121,6 +131,15 @@ public class MainBattleSelectPopUp : MonoBehaviour
 		Resources.UnloadUnusedAssets();
 		System.GC.Collect();
 	}
+
+	public void Loding_LoadFinalBossBattleContentScene(int _index)
+	{
+		DataBase.Instance.Set_CurrentSelectEnemyIndex(_index);
+		Loding.LoadScene("Final_BattleContent");
+		Resources.UnloadUnusedAssets();
+		System.GC.Collect();
+	}
+
 	private void Click_ClosePopUp()
 	{
 		transform.gameObject.SetActive(false);

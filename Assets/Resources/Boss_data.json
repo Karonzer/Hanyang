@@ -66,6 +66,17 @@
         "health": 100
       },
       "gold": 3500
+    },
+    {
+      "id": 7,
+      "name": "Boss_6",
+      "currentXP": 9999,
+      "baseStats": {
+        "attack": 999,
+        "defense": 999,
+        "health": 9999
+      },
+      "gold": 9999
     }
 
   ]
