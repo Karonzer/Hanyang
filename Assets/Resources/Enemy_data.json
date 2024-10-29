@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "E_0",
-      "currentXP": 50,
+      "currentXP": 999999999,
       "baseStats": {
         "attack": 10,
         "defense": 10,

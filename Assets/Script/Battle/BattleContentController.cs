@@ -563,10 +563,20 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		get_BattleCharctreController.get_BattleBoss().Get_Animator().enabled = true;
 		yield return new WaitForEndOfFrame();
 
-		//임시
-		//string aniName = "Attack_" + DataBase.Instance.Get_CurrentSelectEnemyIndex().ToString();
-		string aniName = "Attack_0";
-		Animator bossAnimator = get_BattleCharctreController.get_BattleBoss().Get_Animator();
+		string aniName;
+		Animator bossAnimator;
+		if (DataBase.Instance.Get_CurrentSelectEnemyIndex() <6)
+		{
+			aniName = "Attack_" + DataBase.Instance.Get_CurrentSelectEnemyIndex().ToString();
+			bossAnimator = get_BattleCharctreController.get_BattleBoss().Get_Animator();
+		}
+		else
+		{
+			int randomValue = Random.Range(0, 5);
+			aniName = "Attack_" + randomValue.ToString();
+			bossAnimator = get_BattleCharctreController.get_BattleBoss().Get_Animator();
+		}
+
 		bossAnimator.SetTrigger(aniName);
 
 		// 애니메이션 실행 중인지 확인
