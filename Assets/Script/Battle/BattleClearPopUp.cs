@@ -5,17 +5,52 @@ using UnityEngine.UI;
 
 public class BattleClearPopUp : MonoBehaviour
 {
-
+	[SerializeField] private Transform[] popUps;
 	[SerializeField] private Transform[] charcterLevelUp;
 	[SerializeField] private Text[] charcterXpText;
 	private void Awake()
 	{
+		Initialize_PopUps();
 		Initialize_ClearPopUp();
+		Initialize_PopUp02();
 	}
 
 	private void OnEnable()
 	{
-		Setting_ClearPopUp();
+		Setting_PopUps();
+	}
+
+	private void Initialize_PopUps()
+	{
+		popUps = new Transform[transform.childCount];
+		for(int i = 0; i < popUps.Length;i++)
+		{
+			popUps[i]  = transform.GetChild(i);
+		}
+	}
+
+	private void Setting_PopUps()
+	{
+		for (int i = 0; i < popUps.Length; i++)
+		{
+			popUps[i].gameObject.SetActive(false);
+		}
+
+		if (DataBase.Instance.Get_CurrentSelectEnemyIndex() >= 6 && DataBase.Instance.Get_bClickBoss())
+		{
+			popUps[1].gameObject.SetActive(true);
+		}
+		else
+		{
+			popUps[0].gameObject.SetActive(true);
+			Setting_ClearPopUp();
+		}
+	}
+
+	private void Initialize_PopUp02()
+	{
+		Button button = transform.GetChild(1).Find("Btn").GetChild(0).GetComponent<Button>();
+		button.onClick.AddListener(DataBase.Instance.Initialization);
 	}
 
 	private void Initialize_ClearPopUp()
@@ -60,6 +95,8 @@ public class BattleClearPopUp : MonoBehaviour
 			if(DataBase.Instance.Get_bClickBoss())
 			{
 				value = value + DataBase.Instance.Get_BossStageExperienceValueList();
+				DataBase.Instance.Set_BossClearCheck(true);
+				DataBase.Instance.SaveCheckList();
 			}
 			else
 			{

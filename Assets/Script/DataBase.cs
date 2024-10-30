@@ -55,6 +55,7 @@ public class CheckListData
 {
 	public int DispatchLevel;
 	public int TrainingLevel;
+	public bool[] bossClear;
 }
 
 public class DataBase : GenericSingletonClass<DataBase>
@@ -479,6 +480,16 @@ public class DataBase : GenericSingletonClass<DataBase>
 		Loding.LoadScene("ReTitle");
 		Resources.UnloadUnusedAssets();
 		System.GC.Collect();
+	}
+
+	public bool[] Get_BossClearCheck()
+	{
+		return checkListData.bossClear;
+	}
+
+	public void Set_BossClearCheck(bool _bool)
+	{
+		checkListData.bossClear[currentSelectEnemyIndex] = _bool;
 	}
 
 	private void Initialization_LoadCharacterData()

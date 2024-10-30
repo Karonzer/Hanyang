@@ -1,4 +1,5 @@
 {
   "DispatchLevel": 0,
-  "TrainingLevel": 0
+  "TrainingLevel": 0,
+  "bossClear": [ false, false, false, false, false, false ]
 }

@@ -10,6 +10,8 @@ public class MainBattleSelectPopUp : MonoBehaviour
 
 	private int currentIndex;
 
+	private Button finalBossBtn;
+
 	private void Awake()
 	{
 		Initialize_PopUps();
@@ -25,6 +27,7 @@ public class MainBattleSelectPopUp : MonoBehaviour
 		currentIndex = 0;
 		Setting_PopUps();
 		Setting_BtnsImageColor();
+		Setting_FinalBossBattleSelectPopUp();
 	}
 
 	private void Initialize_PopUps()
@@ -119,9 +122,30 @@ public class MainBattleSelectPopUp : MonoBehaviour
 	{
 		Transform finalBoss = popUps[2].GetChild(0);
 		int index = 6;
-		Button button = finalBoss.GetComponent<Button>();
-		button.onClick.AddListener(() => Loding_LoadFinalBossBattleContentScene(index));
+		finalBossBtn = finalBoss.GetComponent<Button>();
+		finalBossBtn.onClick.AddListener(() => Loding_LoadFinalBossBattleContentScene(index));
 
+	}
+
+	private void Setting_FinalBossBattleSelectPopUp()
+	{
+		bool check = true;
+		for(int i = 0; i < DataBase.Instance.Get_BossClearCheck().Length;i++)
+		{
+			if (!DataBase.Instance.Get_BossClearCheck()[i])
+			{
+				check = false;
+			}
+		}
+
+		if(check)
+		{
+			finalBossBtn.interactable = true;
+		}
+		else
+		{
+			finalBossBtn.interactable = false;
+		}
 	}
 
 	public void Loding_LoadBattleContentScene(int _index)
