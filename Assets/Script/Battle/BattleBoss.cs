@@ -71,6 +71,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 	private void Initialize_myBoss()
 	{
 		bossImage = transform.GetChild(0).GetComponent<Image>();
+		bossImage.transform.localPosition = new Vector3(0, 120, 0);
 		stateImage = bossImage.transform.GetChild(0).GetComponent<Image>();
 		healthpar = transform.GetChild(1).GetChild(0).GetComponent<Image>();
 		healthText = transform.GetChild(1).GetChild(1).GetComponent<Text>();
