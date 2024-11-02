@@ -2,17 +2,17 @@
   "dispatch": [
     {
       "id": "D_2_0",
-      "name": "Test",
+      "name": "탐사 임무",
       "time": 15,
-      "gold": 500,
+      "gold": 1200,
       "probability": 21
 
     },
     {
-      "id": "Test",
-      "name": "Test",
+      "id": "D_2_1",
+      "name": "정찰 임무",
       "time": 16,
-      "gold": 500,
+      "gold": 1300,
       "probability": 22
     }
   ]

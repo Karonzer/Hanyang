@@ -407,7 +407,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		{
 			Debug.Log("파견 성공");
 			resultPopUpText01.text = "파견 성공";
-			resultPopUpText02.text = "용병단이 해당 파견은 \r\n성공하였습니다";
+			resultPopUpText02.text = "용병단이 해당 파견을 \r\n성공하였습니다";
 			resultPopUpText03.text = "획득 골드 : " + dispatchData[currentSelectDispatchIndex].dispatch[currentDispatchPopUpsIndex].gold.ToString();
 			DataBase.Instance.Funtion_AddGold(dispatchData[currentSelectDispatchIndex].dispatch[currentDispatchPopUpsIndex].gold);
 			MGSC.Instance.get_MainController.Funtion_SettingGoldText();
@@ -416,7 +416,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 		{
 			Debug.Log("파견 실패");
 			resultPopUpText01.text = "파견 실패";
-			resultPopUpText02.text = "용병단이 해당 파견은 \r\n실패하였습니다";
+			resultPopUpText02.text = "용병단이 해당 파견을 \r\n실패하였습니다";
 			resultPopUpText03.text = "획득 골드 : " + 0;
 		}
 	}

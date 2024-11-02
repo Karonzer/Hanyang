@@ -2,9 +2,9 @@
   "dispatch": [
     {
       "id": "D_3_0",
-      "name": "Test",
+      "name": "전투 파견",
       "time": 30,
-      "gold": 1000,
+      "gold": 2500,
       "probability": 40
 
     }

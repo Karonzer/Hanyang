@@ -185,7 +185,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 			button.onClick.AddListener(() => Click_TrainingPopUps0Btn(index));
 
 			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = trainingData[0].training[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "획득 : " + trainingData[0].training[index].stats + "초";
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "획득 : " + trainingData[0].training[index].stats;
 			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "소요 시간 : " + trainingData[0].training[index].time + "초";
 			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "비용 : " + trainingData[0].training[index].gold;
 			pos.GetChild(index).GetChild(5).GetComponent<Text>().text = "실패 확률 : " + trainingData[0].training[index].probability + "%";
@@ -202,7 +202,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 			button.onClick.AddListener(() => Click_TrainingPopUps0Btn(index));
 
 			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = trainingData[1].training[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "획득 : " + trainingData[1].training[index].stats + "초";
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "획득 : " + trainingData[1].training[index].stats;
 			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "소요 시간 : " + trainingData[1].training[index].time + "초";
 			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "비용 : " + trainingData[1].training[index].gold;
 			pos.GetChild(index).GetChild(5).GetComponent<Text>().text = "실패 확률 : " + trainingData[1].training[index].probability + "%";
@@ -219,7 +219,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 			button.onClick.AddListener(() => Click_TrainingPopUps0Btn(index));
 
 			pos.GetChild(index).GetChild(1).GetComponent<Text>().text = trainingData[2].training[index].name;
-			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "획득 : " + trainingData[2].training[index].stats + "초";
+			pos.GetChild(index).GetChild(2).GetComponent<Text>().text = "획득 : " + trainingData[2].training[index].stats;
 			pos.GetChild(index).GetChild(3).GetComponent<Text>().text = "소요 시간 : " + trainingData[2].training[index].time + "초";
 			pos.GetChild(index).GetChild(4).GetComponent<Text>().text = "비용 : " + trainingData[2].training[index].gold;
 			pos.GetChild(index).GetChild(5).GetComponent<Text>().text = "실패 확률 : " + trainingData[2].training[index].probability + "%";

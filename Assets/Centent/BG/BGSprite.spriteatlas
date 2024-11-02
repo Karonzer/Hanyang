@@ -47,23 +47,59 @@ SpriteAtlas:
     packables:
     - {fileID: 2800000, guid: 7e52ab5fb0af867478855d98dda7b6a0, type: 3}
     - {fileID: 2800000, guid: a9fef2a8e26f3234ab8bd591b6b38cf2, type: 3}
-    - {fileID: 2800000, guid: 5ab1ee07706862a4d9495dbf1c3f4ea7, type: 3}
+    - {fileID: 2800000, guid: 10c693eb91f4a6c4bb1c4dd685a2987a, type: 3}
+    - {fileID: 2800000, guid: ab470157e24acc744925176a6c6408e8, type: 3}
+    - {fileID: 2800000, guid: 51cb79c2f657ae341bdb9a120f82a858, type: 3}
+    - {fileID: 2800000, guid: b5099d693a9e350418eece2c3d09d3b0, type: 3}
+    - {fileID: 2800000, guid: 73e627a5c86e1ee4f9dfeefc2a491c51, type: 3}
+    - {fileID: 2800000, guid: d993a7cf67b392f40833dc1805088d53, type: 3}
+    - {fileID: 2800000, guid: 4dc093a1046bb13489f0ade6f64a2ee6, type: 3}
+    - {fileID: 2800000, guid: d9343cff29b9b374ba8741852b102b1d, type: 3}
+    - {fileID: 2800000, guid: eba01bad8454efa438ca7538831b8e3c, type: 3}
+    - {fileID: 2800000, guid: 5ab69e4303fba7e48a20d0f467cd415e, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
-    - 5ab1ee07706862a4d9495dbf1c3f4ea7: 21300000
+    - 4dc093a1046bb13489f0ade6f64a2ee6: 21300000
+    - 51cb79c2f657ae341bdb9a120f82a858: 21300000
+    - 5ab69e4303fba7e48a20d0f467cd415e: 21300000
+    - 73e627a5c86e1ee4f9dfeefc2a491c51: 21300000
+    - ab470157e24acc744925176a6c6408e8: 21300000
     - a9fef2a8e26f3234ab8bd591b6b38cf2: 21300000
+    - b5099d693a9e350418eece2c3d09d3b0: 21300000
+    - 10c693eb91f4a6c4bb1c4dd685a2987a: 21300000
+    - eba01bad8454efa438ca7538831b8e3c: 21300000
     - 7e52ab5fb0af867478855d98dda7b6a0: 21300000
+    - d993a7cf67b392f40833dc1805088d53: 21300000
+    - d9343cff29b9b374ba8741852b102b1d: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 5ab1ee07706862a4d9495dbf1c3f4ea7, type: 3}
+  - {fileID: 21300000, guid: 4dc093a1046bb13489f0ade6f64a2ee6, type: 3}
+  - {fileID: 21300000, guid: 51cb79c2f657ae341bdb9a120f82a858, type: 3}
+  - {fileID: 21300000, guid: 5ab69e4303fba7e48a20d0f467cd415e, type: 3}
+  - {fileID: 21300000, guid: 73e627a5c86e1ee4f9dfeefc2a491c51, type: 3}
+  - {fileID: 21300000, guid: ab470157e24acc744925176a6c6408e8, type: 3}
   - {fileID: 21300000, guid: a9fef2a8e26f3234ab8bd591b6b38cf2, type: 3}
+  - {fileID: 21300000, guid: b5099d693a9e350418eece2c3d09d3b0, type: 3}
+  - {fileID: 21300000, guid: 10c693eb91f4a6c4bb1c4dd685a2987a, type: 3}
+  - {fileID: 21300000, guid: eba01bad8454efa438ca7538831b8e3c, type: 3}
   - {fileID: 21300000, guid: 7e52ab5fb0af867478855d98dda7b6a0, type: 3}
+  - {fileID: 21300000, guid: d993a7cf67b392f40833dc1805088d53, type: 3}
+  - {fileID: 21300000, guid: d9343cff29b9b374ba8741852b102b1d, type: 3}
   m_PackedSpriteNamesToIndex:
-  - BG_3
+  - BG_BOSS_3
   - BG_2
+  - BG_BOSS_6
+  - BG_BOSS_1
+  - BG_3
+  - BG_1
+  - BG_BOSS_0
+  - BG_4
+  - BG_BOSS_5
   - BG_0
+  - BG_BOSS_2
+  - BG_BOSS_4
   m_RenderDataMap: {}
   m_Tag: BGSprite
   m_IsVariant: 0

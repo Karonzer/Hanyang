@@ -44,8 +44,19 @@ public class BattleSpriteController : MonoBehaviour, IGet_BattleSpriteController
 
 	public Sprite Get_BGImage(int _index)
 	{
-		string name = "BG_" + _index.ToString();
-		return bgSpriteAtlas.GetSprite(name);
+		if(DataBase.Instance.Get_bClickBoss())
+		{
+			
+			string name = "BG_BOSS_" + _index.ToString();
+			Debug.Log(name);
+			return bgSpriteAtlas.GetSprite(name);
+		}
+		else
+		{
+			string name = "BG_" + _index.ToString();
+			Debug.Log(name);
+			return bgSpriteAtlas.GetSprite(name);
+		}
 	}
 
 	public Sprite Get_BossImage(int _index)

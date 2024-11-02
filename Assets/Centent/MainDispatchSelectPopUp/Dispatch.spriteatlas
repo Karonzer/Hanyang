@@ -49,25 +49,49 @@ SpriteAtlas:
     - {fileID: 2800000, guid: a9c7d0f2e568ede4babf1194d35876e6, type: 3}
     - {fileID: 2800000, guid: 5a1674aadab708641a9ff31f11253eda, type: 3}
     - {fileID: 2800000, guid: 8bd517508502bf44c80d96e2e407959f, type: 3}
+    - {fileID: 2800000, guid: 23e1c2d16920f3846a6a366a9bd12402, type: 3}
+    - {fileID: 2800000, guid: bf5a19455f09c3c4b93bfcf9013562a3, type: 3}
+    - {fileID: 2800000, guid: 11f00d351199df44591ca37893736a44, type: 3}
+    - {fileID: 2800000, guid: dcddd042a2f3c6c4ab168fbc9382b2cb, type: 3}
+    - {fileID: 2800000, guid: 03535c496df8adc4b9b2747df39ed3cf, type: 3}
+    - {fileID: 2800000, guid: 1956d85bd4e3abc4186299bd129553fb, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 8bd517508502bf44c80d96e2e407959f: 21300000
+    - 23e1c2d16920f3846a6a366a9bd12402: 21300000
+    - dcddd042a2f3c6c4ab168fbc9382b2cb: 21300000
     - a9c7d0f2e568ede4babf1194d35876e6: 21300000
+    - 11f00d351199df44591ca37893736a44: 21300000
+    - bf5a19455f09c3c4b93bfcf9013562a3: 21300000
     - 904cab179af32ce47b7cba3e185619f8: 21300000
+    - 03535c496df8adc4b9b2747df39ed3cf: 21300000
     - 5a1674aadab708641a9ff31f11253eda: 21300000
+    - 1956d85bd4e3abc4186299bd129553fb: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 8bd517508502bf44c80d96e2e407959f, type: 3}
+  - {fileID: 21300000, guid: 23e1c2d16920f3846a6a366a9bd12402, type: 3}
+  - {fileID: 21300000, guid: dcddd042a2f3c6c4ab168fbc9382b2cb, type: 3}
   - {fileID: 21300000, guid: a9c7d0f2e568ede4babf1194d35876e6, type: 3}
+  - {fileID: 21300000, guid: 11f00d351199df44591ca37893736a44, type: 3}
+  - {fileID: 21300000, guid: bf5a19455f09c3c4b93bfcf9013562a3, type: 3}
   - {fileID: 21300000, guid: 904cab179af32ce47b7cba3e185619f8, type: 3}
+  - {fileID: 21300000, guid: 03535c496df8adc4b9b2747df39ed3cf, type: 3}
   - {fileID: 21300000, guid: 5a1674aadab708641a9ff31f11253eda, type: 3}
+  - {fileID: 21300000, guid: 1956d85bd4e3abc4186299bd129553fb, type: 3}
   m_PackedSpriteNamesToIndex:
   - D_0_3
+  - D_1_0
+  - D_2_0
   - D_0_1
+  - D_1_2
+  - D_1_1
   - D_0_0
+  - D_2_1
   - D_0_2
+  - D_3_0
   m_RenderDataMap: {}
   m_Tag: Dispatch
   m_IsVariant: 0
