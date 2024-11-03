@@ -234,6 +234,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	private void Click_dispatchPopUps0Btn(int _index)
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		currentDispatchPopUpsIndex = _index;
 		dispatchGuidePopUps.gameObject.SetActive(true);
 	}
@@ -296,6 +297,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 	{
 		if(currentSelectDispatchIndex == _index)
 		{ return; }
+		SoundController.Instance.PlaySound_Effect(0);
 		dispatchPopUps[currentSelectDispatchIndex].gameObject.SetActive(false);
 		currentSelectDispatchIndex = _index;
 		dispatchPopUps[currentSelectDispatchIndex].gameObject.SetActive(true);
@@ -303,6 +305,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	private void Click_DispatchLevelUp()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		levelUpPopUp.gameObject.SetActive(true);
 		levelUpPopUptext.text = "해당 " + sispatchXpValues[DataBase.Instance.Get_DispatchLevel()] + " 골드를 지불하여\r\n파견소를 업그레이드를 하겠습니까?";
 	}
@@ -333,7 +336,8 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	private void Click_LevelUpPopUpOkBtn()
 	{
-		if(DataBase.Instance.Get_CurrentGold() >= int.Parse(sispatchXpValues[DataBase.Instance.Get_DispatchLevel()]))
+		SoundController.Instance.PlaySound_Effect(0);
+		if (DataBase.Instance.Get_CurrentGold() >= int.Parse(sispatchXpValues[DataBase.Instance.Get_DispatchLevel()]))
 		{
 			DataBase.Instance.Funtion_RemoveGold(int.Parse(sispatchXpValues[DataBase.Instance.Get_DispatchLevel()]));
 			DataBase.Instance.Funtion_AddDispatchLevel();
@@ -361,12 +365,14 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	private void Click_LevelUpPopUpNoBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		levelUpPopUp.gameObject.SetActive(false);
 	}
 
 	private void Click_DispatchGuidePopUpsOKNOBtn(bool _bool)
 	{
-		if(_bool)
+		SoundController.Instance.PlaySound_Effect(0);
+		if (_bool)
 		{
 			mainPopUp.gameObject.SetActive(false);
 			dispatchGuidePopUps.gameObject.SetActive(false);
@@ -423,6 +429,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	private void Clikc_CloseBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		transform.gameObject.SetActive(false);
 	}
 
@@ -449,6 +456,7 @@ public class MainDispatchSelectPopUp : MonoBehaviour
 
 	private void Click_ResultPopUpClose()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		ResultPopUp.gameObject.SetActive(false);
 		mainPopUp.gameObject.SetActive(true);
 	}

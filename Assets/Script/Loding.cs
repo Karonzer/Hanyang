@@ -17,7 +17,7 @@ public class Loding : MonoBehaviour
 
 	private void OnEnable()
 	{
-		
+		SoundController.Instance.StopSound_BGM();
 	}
 
 	private void Initialize_LodingProgressBar()

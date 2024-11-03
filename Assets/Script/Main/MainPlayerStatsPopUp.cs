@@ -26,6 +26,7 @@ public class MainPlayerStatsPopUp : MonoBehaviour
 
 	private void Click_Close()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		transform.gameObject.SetActive(false);
 	}
 

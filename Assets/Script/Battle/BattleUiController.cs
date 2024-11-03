@@ -54,7 +54,7 @@ public class BattleUiController : MonoBehaviour, IGet_BattleUiController
 
 	private void Setting_UI()
 	{
-		turnText.text = "≥ª ≈œ";
+		turnText.text = "ÎÇ¥ ÌÑ¥";
 		turnText.gameObject.SetActive(true);
 
 		bottomBar.gameObject.SetActive(false);
@@ -74,18 +74,21 @@ public class BattleUiController : MonoBehaviour, IGet_BattleUiController
 	{
 		Debug.Log(_index);
 		BGSC.Instance.get_BattleContentController.Open_PopUp(_index);
+		SoundController.Instance.PlaySound_Effect(0);
 	}
 
 
 
 	private void Click_TurnOver()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		turnOver.interactable = false;
 		BGSC.Instance.get_BattleContentController.FunctionChange_TurnOver();
 	}
 
 	private void Click_BackBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		BGSC.Instance.get_BattleContentController.Open_PopUp(5);
 	}
 
@@ -99,10 +102,10 @@ public class BattleUiController : MonoBehaviour, IGet_BattleUiController
 		switch(_index)
 		{
 			case 0:
-				turnText.text = "≥ª ≈œ";
+				turnText.text = "ÎÇ¥ ÌÑ¥";
 				break;
 			case 1:
-				turnText.text = "ªÛ¥Î ≈œ";
+				turnText.text = "ÏÉÅÎåÄ ÌÑ¥";
 				break;
 		}
 	}

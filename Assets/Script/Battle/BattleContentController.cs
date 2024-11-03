@@ -81,14 +81,23 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 
 	private void OnEnable()
 	{
+		Check_Sound();
+
 		Setting_Canvas();
 		currentEnemyXp = 0;
 		bcurrentMyTurn = true;
 	}
 
-	private void Start()
+	private void Check_Sound()
 	{
-
+		if (DataBase.Instance.Get_CurrentSelectEnemyIndex() == 6 && DataBase.Instance.Get_bClickBoss())
+		{
+			SoundController.Instance.PlaySound_BGM(2);
+		}
+		else
+		{
+			SoundController.Instance.PlaySound_BGM(1);
+		}
 	}
 
 	private void Initialize_Canvas()
@@ -145,11 +154,13 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 		currentCharcterIndex = _index;
 		get_BattleCharctreController.Change_myCharcterOutLine();
 		get_BattleUiController.OnOff_BottomBar(true);
+		SoundController.Instance.PlaySound_Effect(0);
 	}
 
 
 	public void FuntionClick_BackToMain()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		Loding.LoadScene("Main");
 		Resources.UnloadUnusedAssets();
 		System.GC.Collect();
@@ -479,12 +490,14 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			{
 				Debug.Log("보스 방어");
 				get_BattleCharctreController.get_BattleBoss().Set_bDefenseState(true);
+				SoundController.Instance.PlaySound_Effect(3);
 				yield return new WaitForEndOfFrame();
 			}
 			else  // 10% 확률로 회복
 			{
 				Debug.Log("보스 회복");
 				get_BattleCharctreController.get_BattleBoss().Recover_CurrentHealth();
+				SoundController.Instance.PlaySound_Effect(4);
 				yield return new WaitForEndOfFrame();
 			}
 		}
@@ -677,12 +690,14 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 				{
 					Debug.Log("몬스터 방어");
 					get_BattleCharctreController.get_BattleEnemy(index).Set_bDefenseState(true);
+					SoundController.Instance.PlaySound_Effect(3);
 					yield return new WaitForEndOfFrame();
 				}
 				else  // 10% 확률로 회복
 				{
 					Debug.Log("몬스터 회복");
 					get_BattleCharctreController.get_BattleEnemy(index).Recover_CurrentHealth();
+					SoundController.Instance.PlaySound_Effect(4);
 					yield return new WaitForEndOfFrame();
 				}
 			}

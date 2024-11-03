@@ -75,6 +75,7 @@ public class MainBattleSelectPopUp : MonoBehaviour
 
 	private void Click_Btn(int _index)
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		popUps[currentIndex].gameObject.SetActive(false);
 		currentIndex = _index;
 		popUps[currentIndex].gameObject.SetActive(true);
@@ -150,6 +151,7 @@ public class MainBattleSelectPopUp : MonoBehaviour
 
 	public void Loding_LoadBattleContentScene(int _index)
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		DataBase.Instance.Set_CurrentSelectEnemyIndex(_index);
 		Loding.LoadScene("BattleContent");
 		Resources.UnloadUnusedAssets();
@@ -158,6 +160,7 @@ public class MainBattleSelectPopUp : MonoBehaviour
 
 	public void Loding_LoadFinalBossBattleContentScene(int _index)
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		DataBase.Instance.Set_CurrentSelectEnemyIndex(_index);
 		Loding.LoadScene("Final_BattleContent");
 		Resources.UnloadUnusedAssets();
@@ -167,5 +170,6 @@ public class MainBattleSelectPopUp : MonoBehaviour
 	private void Click_ClosePopUp()
 	{
 		transform.gameObject.SetActive(false);
+		SoundController.Instance.PlaySound_Effect(0);
 	}
 }

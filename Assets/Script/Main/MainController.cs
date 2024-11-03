@@ -37,6 +37,7 @@ public class MainController : MonoBehaviour, IGet_MainController
 
 	private void OnEnable()
 	{
+		SoundController.Instance.PlaySound_BGM(0);
 		Setting_PopUps();
 		Funtion_SettingGoldText();
 		currentPopUpIndex = 0;
@@ -55,6 +56,7 @@ public class MainController : MonoBehaviour, IGet_MainController
 
 	private void Click_OpenPopUpSelectBtn(int _index)
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		currentPopUpIndex = _index;
 		popUps[currentPopUpIndex].gameObject.SetActive(true);
 

@@ -178,6 +178,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 		{
 			if (bDefenseState == true)
 			{
+				SoundController.Instance.PlaySound_Effect(2);
 				Debug.Log("방어 상태 데미지 계산");
 				currentHealth = currentHealth - (int)(damages * 0.1f);
 
@@ -196,6 +197,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 			}
 			else
 			{
+				SoundController.Instance.PlaySound_Effect(1);
 				Debug.Log("데미지 계산");
 				currentHealth = currentHealth - damages;
 
@@ -216,6 +218,7 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 		}
 		else
 		{
+			SoundController.Instance.PlaySound_Effect(5);
 			Debug.Log("방어력이 높아 데미지를 넣을 수 없습니다");
 			currentHealth = currentHealth - 1;
 			if (currentHealth <= 0)

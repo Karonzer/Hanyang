@@ -130,7 +130,8 @@ public class BattleAttackPopUp : MonoBehaviour, IGet_BattleAttackPopUp
 
 	private void Click_SelectBtn(int _index)
 	{
-		if(DataBase.Instance.Get_bClickBoss())
+		SoundController.Instance.PlaySound_Effect(0);
+		if (DataBase.Instance.Get_bClickBoss())
 		{
 			outlines[0].enabled = true;
 			nextBtn.interactable = true;
@@ -149,11 +150,13 @@ public class BattleAttackPopUp : MonoBehaviour, IGet_BattleAttackPopUp
 
 	private void Click_CloseBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		transform.gameObject.SetActive(false);
 	}
 
 	private void Click_NextBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		popUps[1].gameObject.SetActive(true);
 	}
 
@@ -170,12 +173,14 @@ public class BattleAttackPopUp : MonoBehaviour, IGet_BattleAttackPopUp
 
 	private void Click_AttackGuidePopUpStartBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		BGSC.Instance.get_BattleContentController.Start_CharcterBattle();
 		transform.gameObject.SetActive(false);
 	}
 
 	private void Click_AttackGuidePopUpBackBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		popUps[1].gameObject.SetActive(false);
 	}
 }

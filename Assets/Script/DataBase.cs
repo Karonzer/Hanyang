@@ -372,18 +372,20 @@ public class DataBase : GenericSingletonClass<DataBase>
 	}
 
 
-    public void FunctionGain_EnemyGold()
+    public string FunctionGain_EnemyGold()
     {
 		Debug.Log($"currentSelectEnemyIndex : {currentSelectEnemyIndex} , 획득 골드 : {enemyData.enemyStats[currentSelectEnemyIndex].gold}");
 		currentGold += enemyData.enemyStats[currentSelectEnemyIndex].gold;
 		SaveCurrentGold();
+		return enemyData.enemyStats[currentSelectEnemyIndex].gold.ToString();
 
 	}
-	public void FunctionGain_BossGold()
+	public string FunctionGain_BossGold()
 	{
 		Debug.Log($"currentSelectEnemyIndex : {currentSelectEnemyIndex} , 획득 골드 : {bossData.enemyStats[currentSelectEnemyIndex].gold}");
 		currentGold += bossData.enemyStats[currentSelectEnemyIndex].gold;
 		SaveCurrentGold();
+		return bossData.enemyStats[currentSelectEnemyIndex].gold.ToString();
 	}
 
 	public void Funtion_AddGold(int _value)

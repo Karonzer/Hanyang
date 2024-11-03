@@ -166,6 +166,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 		{
 			if(bDefenseState)
 			{
+				SoundController.Instance.PlaySound_Effect(2);
 				Debug.Log("방어 상태 데미지 계산");
 				currentHealth = currentHealth - (int)(damages * 0.1);
 
@@ -184,6 +185,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 			}
 			else
 			{
+				SoundController.Instance.PlaySound_Effect(1);
 				Debug.Log("데미지 계산");
 				currentHealth = currentHealth - damages;
 
@@ -205,6 +207,7 @@ public class BattleBoss : MonoBehaviour, IGet_BattleBoss
 		}
 		else
 		{
+			SoundController.Instance.PlaySound_Effect(5);
 			currentHealth = currentHealth - 1;
 			Debug.Log("방어력이 높아 데미지를 넣을 수 없습니다");
 			if (currentHealth <= 0)

@@ -10,6 +10,11 @@ public class Title : MonoBehaviour
 		Initialize_Btn();
 	}
 
+	private void OnEnable()
+	{
+		SoundController.Instance.PlaySound_BGM(0);
+	}
+
 
 	private void Initialize_Btn()
 	{
@@ -20,6 +25,7 @@ public class Title : MonoBehaviour
 
 	private void Click_Btn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		Loding.LoadScene("Main");
 		Resources.UnloadUnusedAssets();
 		System.GC.Collect();

@@ -245,6 +245,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 
 	private void Click_TrainingPopUps0Btn(int _index)
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		if (DataBase.Instance.Get_CurrentGold() >= trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].gold)
 		{
 			currentTraingingSelcetIndex = _index;
@@ -279,7 +280,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 		Transform pos = mainPopUp.GetChild(0);
 
 		Button close = pos.Find("Close").GetComponent<Button>();
-		close.onClick.AddListener(() => Clikc_CloseBtn());
+		close.onClick.AddListener(() => Click_CloseBtn());
 
 		TrainingBtns = new Button[pos.Find("DispatchBtn").childCount];
 		Transform count = pos.Find("DispatchBtn");
@@ -319,6 +320,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 	{
 		if (currentSelectTraingingPopUpIndex == _index)
 		{ return; }
+		SoundController.Instance.PlaySound_Effect(0);
 		TrainingPopUps[currentSelectTraingingPopUpIndex].gameObject.SetActive(false);
 		currentSelectTraingingPopUpIndex = _index;
 		TrainingPopUps[currentSelectTraingingPopUpIndex].gameObject.SetActive(true);
@@ -326,6 +328,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 
 	private void Click_DispatchLevelUp()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		levelUpPopUp.gameObject.SetActive(true);
 		levelUpPopUptext.text = "해당 " + sispatchXpValues[DataBase.Instance.Get_TrainingLevel()] + " 골드를 지불하여\r\n훈련소를 업그레이드를 하겠습니까?";
 	}
@@ -360,12 +363,14 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 
 	private void Click_SelectPlayerBtn(int _index)
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		currentTraingingPlayerSelcetIndex = _index;
 		trainingGuidePopUps.gameObject.SetActive(true);
 	}
 
 	private void Click_SelectBackBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		selectPopUp.gameObject.SetActive(false);
 	}
 
@@ -400,6 +405,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 
 	private void Click_LevelUpPopUpOkBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		if (DataBase.Instance.Get_CurrentGold() >= int.Parse(sispatchXpValues[DataBase.Instance.Get_TrainingLevel()]))
 		{
 			DataBase.Instance.Funtion_RemoveGold(int.Parse(sispatchXpValues[DataBase.Instance.Get_TrainingLevel()]));
@@ -430,12 +436,13 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 
 	private void Click_LevelUpPopUpNoBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		levelUpPopUp.gameObject.SetActive(false);
 	}
 
 	private void Click_DispatchGuidePopUpsOKNOBtn(bool _bool)
 	{
-		
+		SoundController.Instance.PlaySound_Effect(0);
 		if (_bool)
 		{
 			if (DataBase.Instance.Get_CurrentGold() >= trainingData[currentSelectTraingingPopUpIndex].training[currentTraingingSelcetIndex].gold)
@@ -535,8 +542,9 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 		}
 	}
 
-	private void Clikc_CloseBtn()
+	private void Click_CloseBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		transform.gameObject.SetActive(false);
 	}
 
@@ -565,6 +573,7 @@ public class MainTrainingSelectPopUp : MonoBehaviour
 
 	private void Click_ResultPopUpClose()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		ResultPopUp.gameObject.SetActive(false);
 		mainPopUp.gameObject.SetActive(true);
 	}

@@ -70,12 +70,14 @@ public class BattlePopUpController : MonoBehaviour, IGet_BattlePopUpController
 
 	private void Click_GameStart()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		popUps[currentPopUpIndex].gameObject.SetActive(false);
 		BGSC.Instance.get_BattleContentController.Start_GameStart();
 	}
 
 	private void Click_BackToMain()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		BGSC.Instance.get_BattleContentController.FuntionClick_BackToMain();
 	}
 
@@ -96,6 +98,7 @@ public class BattlePopUpController : MonoBehaviour, IGet_BattlePopUpController
 
 	private void Click_Defense()
 	{
+		SoundController.Instance.PlaySound_Effect(3);
 		BGSC.Instance.get_BattleContentController.FunctionClick_DefenseState();
 		Click_CloseCurrnetPopUp();
 		Debug.Log("방어상태");
@@ -103,6 +106,7 @@ public class BattlePopUpController : MonoBehaviour, IGet_BattlePopUpController
 
 	private void Click_Health()
 	{
+		SoundController.Instance.PlaySound_Effect(4);
 		BGSC.Instance.get_BattleContentController.FunctionClick_RecoverCurrentHealth();
 		Click_CloseCurrnetPopUp();
 		Debug.Log("회복상태");

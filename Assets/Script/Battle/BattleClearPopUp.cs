@@ -109,16 +109,17 @@ public class BattleClearPopUp : MonoBehaviour
 
 		if (DataBase.Instance.Get_bClickBoss())
 		{
-			DataBase.Instance.FunctionGain_BossGold();
+			transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = "획득 골드 : " + DataBase.Instance.FunctionGain_BossGold();
 		}
 		else
 		{
-			DataBase.Instance.FunctionGain_EnemyGold();
+			transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = "획득 골드 : " + DataBase.Instance.FunctionGain_EnemyGold();
 		}
 	}	
 
 	private void Click_OkBtn()
 	{
+		SoundController.Instance.PlaySound_Effect(0);
 		BGSC.Instance.get_BattleContentController.FuntionClick_BackToMain();
 	}
 
