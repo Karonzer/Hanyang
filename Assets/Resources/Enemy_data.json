@@ -3,58 +3,58 @@
     {
       "id": 1,
       "name": "E_0",
-      "currentXP": 100,
+      "currentXP": 300,
       "baseStats": {
-        "attack": 10,
+        "attack": 25,
         "defense": 10,
         "health": 100
       },
-      "gold" : 50
+      "gold" : 100
 
     },
     {
       "id": 2,
       "name": "E_1",
-      "currentXP": 100,
+      "currentXP": 500,
       "baseStats": {
         "attack": 50,
         "defense": 30,
         "health": 200
       },
-      "gold": 50
+      "gold": 300
     },
     {
       "id": 3,
       "name": "E_2",
-      "currentXP": 150,
+      "currentXP": 700,
       "baseStats": {
         "attack": 100,
         "defense": 80,
         "health": 500
       },
-      "gold": 50
+      "gold": 700
     },
     {
       "id": 4,
       "name": "E_3",
-      "currentXP": 200,
+      "currentXP": 900,
       "baseStats": {
-        "attack": 100,
-        "defense": 80,
-        "health": 500
+        "attack": 200,
+        "defense": 160,
+        "health": 1000
       },
-      "gold": 50
+      "gold": 900
     },
     {
       "id": 5,
       "name": "E_4",
-      "currentXP": 250,
+      "currentXP": 1100,
       "baseStats": {
-        "attack": 100,
-        "defense": 80,
-        "health": 500
+        "attack": 300,
+        "defense": 250,
+        "health": 2500
       },
-      "gold": 50
+      "gold": 1100
     }
 
   ]

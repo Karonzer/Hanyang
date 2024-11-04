@@ -3,78 +3,78 @@
     {
       "id": 1,
       "name": "Boss_0",
-      "currentXP": 500,
+      "currentXP": 2000,
       "baseStats": {
-        "attack": 10,
-        "defense": 10,
-        "health": 100
+        "attack": 200,
+        "defense": 160,
+        "health": 1000
       },
-      "gold": 1000
+      "gold": 2000
 
     },
     {
       "id": 2,
       "name": "Boss_1",
-      "currentXP": 1000,
+      "currentXP": 4000,
       "baseStats": {
-        "attack": 50,
-        "defense": 30,
-        "health": 100
-      },
-      "gold": 1500
-    },
-    {
-      "id": 3,
-      "name": "Boss_2",
-      "currentXP": 1500,
-      "baseStats": {
-        "attack": 100,
-        "defense": 80,
-        "health": 100
-      },
-      "gold": 2000
-    },
-    {
-      "id": 4,
-      "name": "Boss_3",
-      "currentXP": 2000,
-      "baseStats": {
-        "attack": 100,
-        "defense": 80,
-        "health": 100
-      },
-      "gold": 2500
-    },
-    {
-      "id": 5,
-      "name": "Boss_4",
-      "currentXP": 2500,
-      "baseStats": {
-        "attack": 100,
-        "defense": 80,
-        "health": 100
+        "attack": 300,
+        "defense": 250,
+        "health": 2500
       },
       "gold": 3000
     },
     {
+      "id": 3,
+      "name": "Boss_2",
+      "currentXP": 6000,
+      "baseStats": {
+        "attack": 425,
+        "defense": 325,
+        "health": 4000
+      },
+      "gold": 4000
+    },
+    {
+      "id": 4,
+      "name": "Boss_3",
+      "currentXP": 8000,
+      "baseStats": {
+        "attack": 578,
+        "defense": 472,
+        "health": 6200
+      },
+      "gold": 5000
+    },
+    {
+      "id": 5,
+      "name": "Boss_4",
+      "currentXP": 10000,
+      "baseStats": {
+        "attack": 721,
+        "defense": 589,
+        "health": 8000
+      },
+      "gold": 6000
+    },
+    {
       "id": 6,
       "name": "Boss_5",
-      "currentXP": 2500,
+      "currentXP": 12000,
       "baseStats": {
-        "attack": 100,
-        "defense": 80,
-        "health": 100
+        "attack": 856,
+        "defense": 712,
+        "health": 1140
       },
-      "gold": 3500
+      "gold": 7000
     },
     {
       "id": 7,
       "name": "Boss_6",
-      "currentXP": 9999,
+      "currentXP": 99999,
       "baseStats": {
-        "attack": 999,
-        "defense": 999,
-        "health": 9999
+        "attack": 1999,
+        "defense": 1999,
+        "health": 3999
       },
       "gold": 9999
     }

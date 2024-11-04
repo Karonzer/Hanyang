@@ -31205,6 +31205,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d3a3c5df708864f94ac48495d34768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btns: []
+  popUps: []
+  bossSelectBtn: []
+  currentIndex: 0
+  finalBossBtn: {fileID: 0}
 --- !u!1 &1950605069
 GameObject:
   m_ObjectHideFlags: 0

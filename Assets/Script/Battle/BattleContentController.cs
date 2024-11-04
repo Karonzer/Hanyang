@@ -327,6 +327,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 	IEnumerator ReSetting_Charcter()
 	{
 		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).ReSetting_myCharacter();
+		get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacterBtn().interactable = false;
 		get_BattleCharctreController.Change_myCharcterOutLine();
 		get_BattleEffecController.Get_DontClick().gameObject.SetActive(false);
 		Check_bCheckCharcterAction();
@@ -390,6 +391,11 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			get_BattleUiController.ReSetting_TurnText(1);
 			get_BattlePopUpController.ReSettin_GuidePopText(1);
 			StartCoroutine("Opne_GuidePopUp",true);
+
+			for (int i = 0; i < 3; i++)
+			{
+				get_BattleCharctreController.get_BattlePlayerCharcter(i).Get_myCharacterBtn().interactable = true;
+			}
 		}
 		else
 		{
@@ -402,6 +408,7 @@ public class BattleContentController : MonoBehaviour, IGet_BattleContentControll
 			{
 				get_BattleCharctreController.get_BattlePlayerCharcter(i).Get_icon().gameObject.SetActive(false);
 				get_BattleCharctreController.get_BattlePlayerCharcter(i).Set_bDefenseState(false);
+				get_BattleCharctreController.get_BattlePlayerCharcter(currentCharcterIndex).Get_myCharacterBtn().interactable = true;
 
 				if (bCurrentCharcterAlivel[i] == true)
 				{

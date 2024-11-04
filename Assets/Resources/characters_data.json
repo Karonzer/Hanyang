@@ -7,7 +7,7 @@
         "currentXP": 0,
         "baseStats": {
           "attack": 50,
-          "defense": 30,
+          "defense": 15,
           "health": 200
         },
         "trainingStats": {
@@ -23,7 +23,7 @@
         "currentXP": 0,
         "baseStats": {
           "attack": 40,
-          "defense": 25,
+          "defense": 10,
           "health": 180
         },
         "trainingStats": {
@@ -39,7 +39,7 @@
         "currentXP": 0,
         "baseStats": {
           "attack": 45,
-          "defense": 28,
+          "defense": 10,
           "health": 190
         },
         "trainingStats": {

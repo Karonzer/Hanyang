@@ -16,6 +16,7 @@ public interface IGet_BattlePlayerCharcter
 	public void Recover_CurrentHealth();
 	public int Get_AttackDamages();
 	public void Calculation_AttackDamages(int _getDamages);
+	public Button Get_myCharacterBtn();
 }
 
 public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
@@ -132,6 +133,9 @@ public class BattlePlayerCharcter : MonoBehaviour, IGet_BattlePlayerCharcter
 
 	public Image Get_myCharacterBtnImage()
 	{ return myCharacterBtnImage; }
+
+	public Button Get_myCharacterBtn()
+	{ return myCharacterBtn; }
 
 	public Image Get_icon()
 	{

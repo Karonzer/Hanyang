@@ -444,9 +444,9 @@ public class DataBase : GenericSingletonClass<DataBase>
 		if (characterData.characters[_index].currentXP >= xpList[characterData.characters[_index].level])
 		{
             characterData.characters[_index].level += 1;
-            characterData.characters[_index].baseStats.attack +=3;
-			characterData.characters[_index].baseStats.defense += 3;
-			characterData.characters[_index].baseStats.health += 3;
+            characterData.characters[_index].baseStats.attack +=5;
+			characterData.characters[_index].baseStats.defense += 5;
+			characterData.characters[_index].baseStats.health += 5;
 			UpdateCharacterLevel(_index);
 		}
 	}

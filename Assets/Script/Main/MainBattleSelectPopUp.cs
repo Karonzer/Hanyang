@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class MainBattleSelectPopUp : MonoBehaviour
 {
-	private Button[] btns;
-    private Transform[] popUps;
+	[SerializeField] private Button[] btns;
+	[SerializeField] private Transform[] popUps;
 
-	private int currentIndex;
+	[SerializeField] private Button[] bossSelectBtn;
 
-	private Button finalBossBtn;
+	[SerializeField] private int currentIndex;
+
+	[SerializeField] private Button finalBossBtn;
 
 	private void Awake()
 	{
@@ -27,6 +29,7 @@ public class MainBattleSelectPopUp : MonoBehaviour
 		currentIndex = 0;
 		Setting_PopUps();
 		Setting_BtnsImageColor();
+		Setting_BossBattleSelectPopUp();
 		Setting_FinalBossBattleSelectPopUp();
 	}
 
@@ -111,11 +114,28 @@ public class MainBattleSelectPopUp : MonoBehaviour
 	private void Initialize_BossBattleSelectPopUp()
 	{
 		Transform enemyPos = popUps[1].GetChild(0).GetChild(0);
-		for (int i = 0; i < enemyPos.childCount; i++)
+		bossSelectBtn = new Button[enemyPos.childCount];
+		for (int i = 0; i < bossSelectBtn.Length; i++)
 		{
 			int index = i;
-			Button button = enemyPos.GetChild(i).GetComponent<Button>();
-			button.onClick.AddListener(() => Loding_LoadBattleContentScene(index));
+			bossSelectBtn[index] = enemyPos.GetChild(i).GetComponent<Button>();
+			bossSelectBtn[index].onClick.AddListener(() => Loding_LoadBattleContentScene(index));
+		}
+	}
+
+	private void Setting_BossBattleSelectPopUp()
+	{
+		for(int i = 0;i <  DataBase.Instance.Get_BossClearCheck().Length;i++)
+		{
+			int index = i;
+			if (!DataBase.Instance.Get_BossClearCheck()[index])
+			{
+				bossSelectBtn[index].interactable = true;
+			}
+			else
+			{
+				bossSelectBtn[index].interactable = false;
+			}
 		}
 	}
 
@@ -142,10 +162,12 @@ public class MainBattleSelectPopUp : MonoBehaviour
 		if(check)
 		{
 			finalBossBtn.interactable = true;
+			popUps[2].GetChild(1).GetComponent<Text>().text = "최종 보스 몬스터";
 		}
 		else
 		{
 			finalBossBtn.interactable = false;
+			popUps[2].GetChild(1).GetComponent<Text>().text = "보스 몬스터를 전부 처리해야 버튼이 활성화 됩니다";
 		}
 	}
 
