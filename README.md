@@ -16,7 +16,7 @@
 ## 2) 사용 기술
 
 * **엔진/언어**: Unity 2022.3.25f1, C#
-* **아키텍처**: Scriptable/JSON·TXT 기반 데이터 주도 설계, Scene 모듈화, 인터페이스 기반 컴포넌트 연결
+* **아키텍처**: JSON·TXT 기반 데이터 주도 설계, Scene 모듈화, 인터페이스 기반 컴포넌트 연결
 * **연동**: Resources 폴더 기반 외부 데이터 로드 → 런타임 적용(DataBase/Controller 계층)
 
 ---
